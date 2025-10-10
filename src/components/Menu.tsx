@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import logoSrc from "../../public/logo-diario.png";
 import {
   BookOpen,
   BarChart3,
@@ -20,7 +19,6 @@ import styles from "./Menu.module.css";
 
 export default function Menu() {
   const pathname = usePathname();
-  const { setTheme, isDark } = usarTema();
   const { points, streak } = usarGamificacao();
 
   const itensNavegacao = [
@@ -39,7 +37,7 @@ export default function Menu() {
       <div className={styles.logoArea}>
         <Link href="/" aria-label="Página inicial">
           <Image
-            src={logoSrc}
+            src="/images/logo-diario-certo.png"
             alt="Logo Journaline"
             width={40}
             height={40}
