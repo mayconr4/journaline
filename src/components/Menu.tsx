@@ -15,7 +15,6 @@ import {
   Sun,
   Flame,
 } from "lucide-react";
-import { usarTema } from "@/lib/contexts/ThemeContext";
 import { usarGamificacao } from "@/lib/contexts/GamificationContext";
 import styles from "./Menu.module.css";
 
