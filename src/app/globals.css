@@ -1,0 +1,209 @@
+/* ==================================== */
+/* 🎨 PALETA DE CORES E FONTES ATUALIZADAS */
+/* ==================================== */
+:root {
+  /* Cores da Paleta (Tons Terrosos) */
+  --marrom-escuro: #582f0e;
+  --verde-musgo: #333d29;
+  --caramelo: #936639;
+  --bege-claro: #a68a64;
+  --verde-oliva: #656d4a;
+  --bege-fundo: #b6ad90;
+  --verde-cinzento: #a4ac86;
+  --verde-escuro: #414833;
+
+  /* Definição de Uso */
+  --cor-fundo: var(--bege-fundo);
+  --cor-primaria: var(--caramelo); /* Destaque e Botões */
+  --cor-secundaria: var(--verde-oliva); /* Outros detalhes e links */
+  --cor-texto-principal: var(--verde-escuro);
+  --cor-texto-claro: var(--marrom-escuro);
+
+  /* Sombras para Neumorfismo (Baseadas no --bege-fundo) */
+  --sombra-clara: #c9c3b7;
+  --sombra-escura: #9e9683;
+}
+
+/* ==================================== */
+/* 💻 ESTILOS GERAIS E ESTRUTURA */
+/* ==================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  /* Aplica a cor padrão de texto */
+  color: var(--cor-texto-principal);
+}
+
+body {
+  background-color: var(--cor-fundo);
+  /* Nunito para o corpo de texto (você já linkou as fontes no _app.js) */
+  font-family: "Nunito", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Títulos: Aplicando Poppins */
+h1,
+h2,
+h3 {
+  font-family: "Poppins", sans-serif;
+  color: var(--cor-texto-claro);
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-size: 2.5em;
+  color: var(--marrom-escuro);
+}
+
+h2 {
+  font-size: 1.8em;
+}
+
+/* Estrutura Principal (Main) */
+main {
+  background-color: var(--cor-fundo);
+  padding: 40px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 650px;
+  margin: 40px 0;
+
+  /* Neumorfismo: Caixa principal levemente levantada */
+  box-shadow: 10px 10px 20px var(--sombra-escura),
+    -10px -10px 20px var(--sombra-clara);
+}
+
+/* Links na Navegação */
+nav a {
+  text-decoration: none;
+  color: var(--cor-secundaria);
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: var(--caramelo);
+}
+
+/* ==================================== */
+/* 🖋️ FORMULÁRIOS E BOTÕES (Neumorfismo) */
+/* ==================================== */
+
+form div {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--cor-fundo);
+
+  /* Neumorfismo Inverso: Campo afundado */
+  box-shadow: inset 4px 4px 8px var(--sombra-escura),
+    inset -4px -4px 8px var(--sombra-clara);
+  outline: none;
+  transition: all 0.3s;
+}
+
+input:focus,
+textarea:focus {
+  /* Foco: Borda suave da cor primária */
+  box-shadow: inset 2px 2px 4px var(--sombra-escura),
+    inset -2px -2px 4px var(--sombra-clara), 0 0 0 3px var(--cor-primaria);
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 15px;
+  background-color: var(--cor-primaria);
+  font-weight: 700;
+  font-size: 1.1em;
+  cursor: pointer;
+  color: var(--sombra-clara);
+  font-family: "Poppins", sans-serif;
+
+  /* Neumorfismo de Botão */
+  box-shadow: 6px 6px 12px var(--sombra-escura),
+    -6px -6px 12px var(--sombra-clara);
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--marrom-escuro);
+  box-shadow: 2px 2px 5px var(--sombra-escura),
+    -2px -2px 5px var(--sombra-clara);
+}
+
+button:active {
+  /* Efeito de clique: 'afunda' o botão */
+  box-shadow: inset 4px 4px 10px var(--verde-escuro),
+    inset -4px -4px 10px var(--sombra-clara);
+  transform: scale(0.98);
+}
+
+/* Estilo para o botão de exclusão da página de Configurações */
+#zona-perigo button {
+  background-color: #e74c3c; /* Vermelho forte */
+  color: white;
+}
+
+#zona-perigo button:hover {
+  background-color: #c0392b;
+}
+
+/* ==================================== */
+/* 📖 ESTILOS DO DIÁRIO (Dashboard) */
+/* ==================================== */
+
+#entradas-antigas article {
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: var(--cor-fundo);
+
+  /* Estilo de cartão de entrada */
+  box-shadow: 5px 5px 10px var(--sombra-escura),
+    -5px -5px 10px var(--sombra-clara);
+  border-left: 5px solid var(--caramelo);
+}
+
+#entradas-antigas h3 {
+  color: var(--marrom-escuro);
+  margin-bottom: 5px;
+}
+
+#entradas-antigas a {
+  color: var(--caramelo);
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+/* Rodapé */
+footer {
+  padding: 20px;
+  margin-top: auto;
+  color: var(--sombra-escura);
+  font-size: 0.8em;
+}
