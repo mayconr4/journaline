@@ -1,6 +1,5 @@
 'use client';
 import { useState, ChangeEvent } from 'react';
-import Sidebar from '../components/Sidebar';
 import { motion } from 'framer-motion';
 import '../styles/globals.css';
 
@@ -18,7 +17,6 @@ export default function Diario() {
 
   return (
     <div className="container">
-
       <main className="main-content" style={{ backgroundColor: corFundo }}>
         <h1>Seu Diário</h1>
         <form onSubmit={e => e.preventDefault()} className="form">

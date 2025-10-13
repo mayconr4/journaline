@@ -1,5 +1,4 @@
 'use client';
-import Sidebar from '../components/Sidebar';
 import { motion } from 'framer-motion';
 import '../styles/globals.css';
 

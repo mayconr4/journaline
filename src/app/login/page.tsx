@@ -1,6 +1,6 @@
 "use client";
 import { useState, ChangeEvent, FormEvent } from "react";
-import Sidebar from "../components/Sidebar";
+// import Sidebar from "../components/Sidebar";
 import { motion } from "framer-motion";
 import "../styles/globals.css";
 
@@ -21,6 +21,7 @@ export default function Login() {
 
   return (
     <div className="container">
+     
       <main className="main-content">
         <h1>Entrar no Journaline</h1>
         <form onSubmit={handleSubmit} className="form">

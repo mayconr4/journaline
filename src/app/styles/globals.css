@@ -100,6 +100,23 @@ h6 {
   background: #582f0e; /* cor mais escura para hover */
 }
 
+.btn-secondary {
+  background: #fafafa;
+  color: #656d4a;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #a4ac86; /* Borda sutil */
+  cursor: pointer;
+  max-width: 200px;
+  margin: 0 auto;
+  transition: 0.3s;
+  font-family: "Poppins", "Nunito", sans-serif;
+}
+
+.btn-secondary:hover {
+  background: #f0f0f0; /* Um leve hover */
+}
+
 /* FORMULÁRIOS */
 form.form {
   display: flex;
@@ -132,6 +149,22 @@ form input:focus,
 form textarea:focus {
   outline: none;
   box-shadow: 0 0 0 2px #936639;
+}
+
+/* ESTILOS ESPECÍFICOS PARA PERFIL */
+.profile-input {
+  padding: 1rem; /* Maior padding */
+  font-size: 1.125rem; /* Fonte maior */
+  border-radius: 8px;
+  border: 1px solid #a4ac86;
+  background: #fafafa;
+  color: #333d29;
+  font-family: "Nunito", sans-serif;
+}
+
+.profile-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px #936639, 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra mais visível */
 }
 
 /* CONQUISTAS / CARDS */
