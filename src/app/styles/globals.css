@@ -1,21 +1,179 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body, html { font-family: 'Times New Roman', serif; background: #FAFAFA; color: #333D29; }
+/* IMPORT (se estiver usando @import ao invés do <link>) */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap");
 
-.container { display: flex; min-height: 100vh; }
-.sidebar { width: 250px; background: #E0E0E0; display: flex; flex-direction: column; padding: 2rem; }
-.sidebar a { text-decoration: none; color: #333D29; margin-bottom: 1rem; font-weight: 500; }
-.sidebar a.active { font-weight: 700; }
-.main-content { flex-grow: 1; padding: 3rem; }
-.btn-primary { background: #A68A64; color: white; padding: 0.75rem 1.5rem; border-radius: 12px; border: none; cursor: pointer; transition: 0.3s; }
-.btn-primary:hover { background: #936639; }
-form.form { display: flex; flex-direction: column; gap: 1rem; }
-form label { color: #656D4A; }
-form input, form textarea { padding: 0.75rem; border-radius: 8px; border: 1px solid #A4AC86; }
-form textarea { height: 10rem; resize: none; }
-form input:focus, form textarea:focus { outline: none; box-shadow: 0 0 0 2px #936639; }
-.achievements-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-.achievement { padding: 1.5rem; border-radius: 12px; text-align: center; }
-.achievement.unlocked { background: #A68A64; color: white; }
-.achievement.locked { background: #E0E0E0; color: #656D4A; opacity: 0.6; }
-.bg-preview { width: 100%; max-height: 200px; object-fit: cover; border-radius: 8px; margin-top: 0.5rem; }
-.options { margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem; }
+/* RESET E BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* FONTES: Nunito no corpo, Poppins nos títulos */
+body,
+html {
+  font-family: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  background: #b6ad90; /* tom neutro suave de fundo */
+  color: #333d29; /* texto principal */
+}
+
+/* TÍTULOS com Poppins */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", "Nunito", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  color: #333d29;
+  margin-bottom: 0.5rem;
+  line-height: 1.15;
+}
+
+/* LAYOUT */
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar .logo {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.sidebar .logo img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px; /* Adicionei isso para arredondar as bordas */
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar a {
+  color: #333;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+  color: #a68a64; /* tom quente ao passar o mouse */
+}
+
+.sidebar a.active {
+  color: #936639;
+  font-weight: 700;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 3rem;
+  background: #fafafa; /* leve contraste com a sidebar */
+}
+
+/* BOTÕES */
+.btn-primary {
+  background: #936639;
+  color: #fafafa;
+  padding: 0.5rem 1rem; /* Diminuí o padding para reduzir o tamanho do botão */
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  max-width: 200px; /* Adicionei isso para limitar a largura do botão */
+  margin: 0 auto; /* Adicionei isso para centralizar o botão */
+  transition: 0.3s;
+  font-family: "Poppins", "Nunito", sans-serif;
+}
+
+.btn-primary:hover {
+  background: #582f0e; /* cor mais escura para hover */
+}
+
+/* FORMULÁRIOS */
+form.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-family: "Nunito", sans-serif;
+}
+
+form label {
+  color: #333d29;
+  font-weight: 600;
+}
+
+form input,
+form textarea {
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #a4ac86;
+  background: #fafafa;
+  color: #333d29;
+  font-family: "Nunito", sans-serif;
+}
+
+form textarea {
+  height: 10rem;
+  resize: none;
+}
+
+form input:focus,
+form textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #936639;
+}
+
+/* CONQUISTAS / CARDS */
+.achievements-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.achievement {
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  transition: 0.3s;
+  font-family: "Nunito", sans-serif;
+}
+
+.achievement.unlocked {
+  background: #a68a64;
+  color: #fafafa;
+  font-family: "Poppins", "Nunito", sans-serif;
+}
+
+.achievement.locked {
+  background: #a4ac86;
+  color: #656d4a;
+  opacity: 0.7;
+}
+
+/* IMAGEM DE FUNDO / PREVIEW */
+.bg-preview {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+}
+
+/* OPÇÕES EXTRAS */
+.options {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

@@ -31,9 +31,15 @@ export default function Diario() {
           <label>Texto</label>
           <textarea value={texto} onChange={handleChange(setTexto)} />
 
-          <button type="button" onClick={() => setMostrarOpcoes(!mostrarOpcoes)}>
+          <motion.button
+            type="button"
+            onClick={() => setMostrarOpcoes(!mostrarOpcoes)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="btn-primary"
+          >
             {mostrarOpcoes ? 'Ocultar opções' : 'Desbloquear opções de imagem e cor'}
-          </button>
+          </motion.button>
 
           {mostrarOpcoes && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="options">

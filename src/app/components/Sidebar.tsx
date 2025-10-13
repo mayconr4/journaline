@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+// import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import '../styles/globals.css';
@@ -18,6 +19,9 @@ export default function Sidebar() {
   const pathname = usePathname();
   return (
     <motion.nav initial={{ x: -250 }} animate={{ x: 0 }} className="sidebar">
+      <Link href="/">
+        <img className="logo" src="/logo-diario-certo.png" alt="Journaline Logo" width={150} height={150} style={{ borderRadius: '15px' }} />
+      </Link>
       {links.map(link => (
         <Link key={link.href} href={link.href} className={pathname === link.href ? 'active' : ''}>
           {link.label}
