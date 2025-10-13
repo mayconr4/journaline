@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // use "sqlite" se quiser testar local
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  nome      String
+  email     String   @unique
+  senha     String
+  createdAt DateTime @default(now())
+
+  diarios   Diario[]
+}
+
+model Diario {
+  id        String   @id @default(cuid())
+  titulo    String
+  data      String
+  texto     String
+  corFundo  String
+  imagemFundo String?
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+}
