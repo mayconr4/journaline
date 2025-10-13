@@ -48,86 +48,97 @@ export default function Perfil() {
     <div className="container">
       
       <main className="main-content">
-        <h1 className="mb-6">Meu Perfil</h1>
+        <h1 className="">Meu Perfil</h1>
 
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white p-8 rounded-lg shadow-md"
+          className="profile-card"
         >
           {isEditing ? (
-            <div className="mb-4">
-              <input
-                type="text"
-                name="name"
-                value={editedName}
-                onChange={handleChange}
-                className="profile-input w-full"
-              />
-            </div>
-          ) : (
-            <div className="mb-6">
-              <h2 className="text-2xl font-semibold text-[#414833]">{user.name}</h2>
-            </div>
-          )}
+            <form onSubmit={handleSave} className="form">
+              <div>
+                <label className="form-label" htmlFor="editedName">
+                  Nome
+                </label>
+                <input
+                  id="editedName"
+                  type="text"
+                  name="name"
+                  value={editedName}
+                  onChange={handleChange}
+                  className="profile-input"
+                />
+              </div>
 
-          {isEditing ? (
-            <div className="mb-4">
-              <input
-                type="email"
-                name="email"
-                value={editedEmail}
-                onChange={handleChange}
-                className="profile-input w-full"
-              />
-            </div>
-          ) : (
-            <div className="mb-6">
-              <p className="text-[#656D4A]">{user.email}</p>
-            </div>
-          )}
+              <div>
+                <label className="form-label" htmlFor="editedEmail">
+                  Email
+                </label>
+                <input
+                  id="editedEmail"
+                  type="email"
+                  name="email"
+                  value={editedEmail}
+                  onChange={handleChange}
+                  className="profile-input"
+                />
+              </div>
 
-          {isEditing ? (
-            <textarea
-              name="bio"
-              value={editedBio}
-              onChange={handleChange}
-              className="profile-input w-full mb-8"
-              rows={4}
-            />
-          ) : (
-            <p className="text-[#333D29] mb-10">{user.bio}</p>
-          )}
+              <div>
+                <label className="form-label" htmlFor="editedBio">
+                  Bio
+                </label>
+                <textarea
+                  id="editedBio"
+                  name="bio"
+                  value={editedBio}
+                  onChange={handleChange}
+                  className="profile-input"
+                  rows={4}
+                />
+              </div>
 
-          {isEditing ? (
-            <div className="flex space-x-4 mt-8">
+              <div className="button-group">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="btn-primary"
+                  onClick={handleSave}
+                >
+                  Salvar
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="btn-secondary"
+                  onClick={handleCancel}
+                >
+                  Cancelar
+                </motion.button>
+              </div>
+            </form>
+          ) : (
+            <>
+              <div className="profile-info-item">
+                <h2 className="profile-heading">Nome: {user.name}</h2>
+              </div>
+              <div className="profile-info-item">
+                <p className="profile-text">Email: {user.email}</p>
+              </div>
+              <div className="profile-bio-item">
+                <p className="profile-text">Bio: {user.bio}</p>
+              </div>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="btn-primary"
-                onClick={handleSave}
+                className="btn-primary profile-edit-button"
+                onClick={handleEdit}
               >
-                Salvar
+                Editar Perfil
               </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-secondary"
-                onClick={handleCancel}
-              >
-                Cancelar
-              </motion.button>
-            </div>
-          ) : (
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-primary mt-8"
-              onClick={handleEdit}
-            >
-              Editar Perfil
-            </motion.button>
+            </>
           )}
         </motion.div>
       </main>

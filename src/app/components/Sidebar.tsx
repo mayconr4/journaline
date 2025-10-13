@@ -20,7 +20,7 @@ export default function Sidebar() {
   return (
     <motion.nav initial={{ x: -250 }} animate={{ x: 0 }} className="sidebar">
       <Link href="/">
-        <img className="logo" src="/logo-diario-certo.png" alt="Journaline Logo" width={150} height={150} style={{ borderRadius: '15px' }} />
+        <img className="logo" src="/logo-diario-certo.png" alt="Journaline Logo" width={150} height={150} />
       </Link>
       {links.map(link => (
         <Link key={link.href} href={link.href} className={pathname === link.href ? 'active' : ''}>

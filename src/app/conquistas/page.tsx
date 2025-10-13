@@ -15,6 +15,7 @@ export default function Conquistas() {
       
       <main className="main-content">
         <h1>Conquistas</h1>
+        <p className="text-[#656D4A] mb-8">Explore suas conquistas e veja o que você já alcançou no Journaline!</p>
         <div className="achievements-grid">
           {conquistas.map(c => (
             <motion.div
@@ -26,7 +27,14 @@ export default function Conquistas() {
             >
               <img src={c.imagem} alt={c.nome} className="achievement-image" />
               <h2>{c.nome}</h2>
-              <p>{c.desbloqueada ? 'Desbloqueada' : 'Bloqueada'}</p>
+              <p className="text-sm">{c.desbloqueada ? 'Desbloqueada' : 'Bloqueada'}</p>
+              {!c.desbloqueada && (
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/2921/2921104.png" /* Ícone de cadeado */
+                  alt="Bloqueada"
+                  className="locked-icon"
+                />
+              )}
             </motion.div>
           ))}
         </div>
