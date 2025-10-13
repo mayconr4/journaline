@@ -3,11 +3,11 @@ import Sidebar from '../components/Sidebar';
 import { motion } from 'framer-motion';
 import '../styles/globals.css';
 
-interface Conquista { id: number; nome: string; desbloqueada: boolean; }
+interface Conquista { id: number; nome: string; desbloqueada: boolean; imagem: string; }
 const conquistas: Conquista[] = [
-  { id: 1, nome: 'Primeira Entrada', desbloqueada: true },
-  { id: 2, nome: '5 Entradas', desbloqueada: false },
-  { id: 3, nome: 'Diário Completo', desbloqueada: false },
+  { id: 1, nome: 'Primeira Entrada', desbloqueada: true, imagem: 'https://cdn-icons-png.flaticon.com/512/190/190411.png' },
+  { id: 2, nome: '5 Entradas', desbloqueada: false, imagem: 'https://cdn-icons-png.flaticon.com/512/190/190425.png' },
+  { id: 3, nome: 'Diário Completo', desbloqueada: false, imagem: 'https://cdn-icons-png.flaticon.com/512/190/190423.png' },
 ];
 
 export default function Conquistas() {
@@ -25,6 +25,7 @@ export default function Conquistas() {
               transition={{ delay: c.id * 0.1 }}
               className={`achievement ${c.desbloqueada ? 'unlocked' : 'locked'}`}
             >
+              <img src={c.imagem} alt={c.nome} className="achievement-image" />
               <h2>{c.nome}</h2>
               <p>{c.desbloqueada ? 'Desbloqueada' : 'Bloqueada'}</p>
             </motion.div>
