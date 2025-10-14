@@ -3,56 +3,99 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+/* Paleta de Cores (Adaptada) */
+:root {
+  --primary-color: #a68a64; /* Marrom/Bege Primário */
+  --secondary-color: #936639; /* Marrom mais escuro para hover */
+  --background-light: #fafafa; /* Fundo Principal */
+  --text-dark: #333d29; /* Texto Principal Escuro */
+  --text-medium: #656d4a; /* Texto Secundário */
+  --sidebar-background: #e0e0e0;
+}
+
 body,
 html {
   font-family: "Times New Roman", serif;
-  background: #fafafa;
-  color: #333d29;
+  background: var(--background-light);
+  color: var(--text-dark);
+  height: 100%; /* Garante que body e html tenham 100% da altura da viewport */
 }
 
+/* Layout Principal */
 .container {
   display: flex;
-  min-height: 100vh;
+  min-height: 100vh; /* Ocupa a altura total da viewport */
+  width: 100%;
 }
+
+/* Sidebar */
 .sidebar {
   width: 250px;
-  background: #e0e0e0;
+  background: var(--sidebar-background);
   display: flex;
   flex-direction: column;
   padding: 2rem;
+  flex-shrink: 0; /* Impede que o sidebar encolha */
 }
 .sidebar a {
   text-decoration: none;
-  color: #333d29;
+  color: var(--text-dark);
   margin-bottom: 1rem;
   font-weight: 500;
+  transition: color 0.3s;
+}
+.sidebar a:hover {
+  color: var(--secondary-color);
 }
 .sidebar a.active {
   font-weight: 700;
 }
+
+/* Conteúdo Principal (Quando o Sidebar ESTÁ presente) */
 .main-content {
-  flex-grow: 1;
+  flex-grow: 1; /* Ocupa o espaço restante */
   padding: 3rem;
+  overflow-y: auto;
 }
+
+/* 🌟 REGRA DE CENTRALIZAÇÃO PARA A HOME 🌟 */
+.main-content.full-width {
+  width: 100%;
+  height: 100vh; /* Garante a altura total da viewport */
+  padding: 0; /* Remove o padding padrão */
+
+  /* Centralização Flexbox */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza Horizontalmente */
+  justify-content: center; /* Centraliza Verticalmente */
+}
+
+/* Botões */
 .btn-primary {
-  background: #a68a64;
+  background: var(--primary-color);
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 12px;
   border: none;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background 0.3s;
+  text-decoration: none; /* Garante que funcione com Link */
+  display: inline-block;
 }
 .btn-primary:hover {
-  background: #936639;
+  background: var(--secondary-color);
 }
+
+/* Formulários (Mantido do seu CSS) */
 form.form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 form label {
-  color: #656d4a;
+  color: var(--text-medium);
 }
 form input,
 form textarea {
@@ -67,8 +110,10 @@ form textarea {
 form input:focus,
 form textarea:focus {
   outline: none;
-  box-shadow: 0 0 0 2px #936639;
+  box-shadow: 0 0 0 2px var(--secondary-color);
 }
+
+/* Achievements (Mantido do seu CSS) */
 .achievements-grid {
   display: grid;
   gap: 1rem;
@@ -80,24 +125,12 @@ form textarea:focus {
   text-align: center;
 }
 .achievement.unlocked {
-  background: #a68a64;
+  background: var(--primary-color);
   color: white;
 }
 .achievement.locked {
-  background: #e0e0e0;
-  color: #656d4a;
+  background: var(--sidebar-background);
+  color: var(--text-medium);
   opacity: 0.6;
 }
-.bg-preview {
-  width: 100%;
-  max-height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-top: 0.5rem;
-}
-.options {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+/* ... Outros estilos que você possa ter ... */

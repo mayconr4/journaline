@@ -1,49 +1,37 @@
-/* Container centralizado full screen */
-.container {
-  display: flex;
-  justify-content: center; /* centraliza horizontalmente */
-  align-items: center; /* centraliza verticalmente */
-  width: 100vw;
-  height: 100vh; /* ocupa toda a tela */
-  background-color: #fdf6e3; /* tom de página de livro */
-  padding: 0;
-  box-sizing: border-box;
-}
+/* page.module.css */
 
-/* Bloco do conteúdo principal */
 .mainContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px; /* espaçamento entre elementos */
+  /* Estas regras garantem o estilo da tipografia na home */
   text-align: center;
-  padding: 40px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* min-height 100vh é redundante aqui, mas se mantiver, não quebra */
+  padding: 40px 20px;
+  gap: 20px;
 }
 
-/* Título principal */
 .mainContent h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #6b4226;
-  margin: 0;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--secondary-color); /* Usando o tom mais escuro para o título */
+  margin-bottom: 10px;
+  letter-spacing: -1px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* Descrição / subtítulo */
 .mainContent p {
-  font-size: 1.2rem;
-  color: #333;
+  font-size: 1.5rem;
+  color: var(--text-medium);
   max-width: 600px;
-  line-height: 1.5;
-  margin: 0;
+  line-height: 1.4;
+  margin-bottom: 30px;
 }
 
-/* Botão */
-.mainContent button {
-  font-size: 1rem;
-  padding: 12px 25px;
-  border-radius: 8px;
-  cursor: pointer;
+/* Media Query para telas menores */
+@media (max-width: 768px) {
+  .mainContent h1 {
+    font-size: 2.5rem;
+  }
+
+  .mainContent p {
+    font-size: 1.2rem;
+  }
 }
