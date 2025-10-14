@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import "./login.css"; // seu CSS puro
+import "./login.module.css"; // seu CSS puro
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
