@@ -1,16 +1,15 @@
 // app/layout.tsx (Server Component)
 
 import "./styles/globals.css";
-// 🎯 Importa do diretório components
+// ✅ Importações do seu layout
 import LayoutWrapper from "./components/LayoutWrapper";
+import SessionProviderWrapper from "./components/SessionProviderWrapper"; // NOVO
 
-// Metadata é permitido aqui
 export const metadata = {
   title: "Journaline",
   description: "Diário gamificado",
 };
 
-// O RootLayout fornece a estrutura HTML e renderiza o Client Component.
 export default function RootLayout({
   children,
 }: {
@@ -19,8 +18,11 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body>
-        {/* Renderiza o LayoutWrapper que contém a lógica de rota */}
-        <LayoutWrapper>{children}</LayoutWrapper>
+        {/* ENVOLVE TUDO NO PROVEDOR DE SESSÃO */}
+        <SessionProviderWrapper>
+          {/* O LayoutWrapper tem a lógica do Sidebar */}
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </SessionProviderWrapper>
       </body>
     </html>
   );
