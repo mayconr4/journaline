@@ -1,14 +1,16 @@
-/* Container centralizado full height */
+/* Container centralizado full screen */
 .container {
   display: flex;
   justify-content: center; /* centraliza horizontalmente */
   align-items: center; /* centraliza verticalmente */
-  min-height: 100vh; /* ocupa toda a altura da tela */
+  width: 100vw;
+  height: 100vh; /* ocupa toda a tela */
   background-color: #fdf6e3; /* tom de página de livro */
-  padding: 20px;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Conteúdo principal */
+/* Bloco do conteúdo principal */
 .mainContent {
   display: flex;
   flex-direction: column;
@@ -16,17 +18,17 @@
   gap: 20px; /* espaçamento entre elementos */
   text-align: center;
   padding: 40px;
-  background-color: #fff; /* opcional, dá destaque ao conteúdo */
-  border-radius: 12px; /* bordas arredondadas */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* sombra leve */
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Título principal */
 .mainContent h1 {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #6b4226; /* tom marrom como páginas de livro */
-  margin-bottom: 0.5rem;
+  color: #6b4226;
+  margin: 0;
 }
 
 /* Descrição / subtítulo */
@@ -35,6 +37,7 @@
   color: #333;
   max-width: 600px;
   line-height: 1.5;
+  margin: 0;
 }
 
 /* Botão */
@@ -44,5 +47,3 @@
   border-radius: 8px;
   cursor: pointer;
 }
-
-/* Hover do botão já é tratado no globals.css */
