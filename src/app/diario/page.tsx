@@ -1,6 +1,7 @@
 "use client";
 import { useState, ChangeEvent } from "react";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 import "../styles/globals.css";
 
 export default function Diario() {
@@ -11,6 +12,7 @@ export default function Diario() {
   const [corFundo, setCorFundo] = useState("#FFFFFF");
   const [imagemFundo, setImagemFundo] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const { data: session } = useSession();
 
   function handleChange(setFunc: any) {
     return (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -18,12 +20,24 @@ export default function Diario() {
   }
 
   async function salvarEntrada() {
+    if (!session || !session.user) {
+      alert("Você precisa estar logado para salvar o diário!");
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await fetch("/api/diario", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ titulo, data, texto, corFundo, imagemFundo }),
+        body: JSON.stringify({
+          titulo,
+          data,
+          texto,
+          corFundo,
+          imagemFundo,
+          userId: session.user.id,
+        }),
       });
 
       if (!res.ok) {
@@ -32,7 +46,6 @@ export default function Diario() {
       }
 
       alert("Entrada salva!");
-      // Limpar campos após salvar
       setTitulo("");
       setData("");
       setTexto("");
