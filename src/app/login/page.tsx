@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import "./login.module.css"; // seu CSS puro
+import Link from "next/link";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -28,31 +29,39 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="container">
-      <form onSubmit={handleSubmit} className="formulario">
-        <h1 className="titulo">Login</h1>
+    <>
+      <main className="container">
+        <form onSubmit={handleSubmit} className="formulario">
+          <h1 className="titulo">Login</h1>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="campo"
-        />
-        <input
-          type="password"
-          placeholder="Senha"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-          className="campo"
-        />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="campo"
+          />
+          <input
+            type="password"
+            placeholder="Senha"
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+            className="campo"
+          />
 
-        <button type="submit" className="botao">
-          Entrar
-        </button>
+          <button type="submit" className="botao">
+            Entrar
+          </button>
 
-        {mensagem && <p className="mensagem">{mensagem}</p>}
-      </form>
-    </main>
+          {mensagem && <p className="mensagem">{mensagem}</p>}
+
+          <Link href="/cadastro">
+            <p>
+              Não tem cadastro ainda <b>cadastre-se</b>
+            </p>
+          </Link>
+        </form>
+      </main>
+    </>
   );
 }

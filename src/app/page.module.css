@@ -1,0 +1,48 @@
+/* Container centralizado full height */
+.container {
+  display: flex;
+  justify-content: center; /* centraliza horizontalmente */
+  align-items: center; /* centraliza verticalmente */
+  min-height: 100vh; /* ocupa toda a altura da tela */
+  background-color: #fdf6e3; /* tom de página de livro */
+  padding: 20px;
+}
+
+/* Conteúdo principal */
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* espaçamento entre elementos */
+  text-align: center;
+  padding: 40px;
+  background-color: #fff; /* opcional, dá destaque ao conteúdo */
+  border-radius: 12px; /* bordas arredondadas */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* sombra leve */
+}
+
+/* Título principal */
+.mainContent h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #6b4226; /* tom marrom como páginas de livro */
+  margin-bottom: 0.5rem;
+}
+
+/* Descrição / subtítulo */
+.mainContent p {
+  font-size: 1.2rem;
+  color: #333;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+/* Botão */
+.mainContent button {
+  font-size: 1rem;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Hover do botão já é tratado no globals.css */
