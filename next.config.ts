@@ -1,9 +1,10 @@
-import type { NextConfig } from "next";
+import { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // outras configurações
   turbopack: {
-    root: "./journaline", // caminho relativo para a raiz real do projeto
+    root: ".", // raiz do projeto
   },
 };
+
 export default nextConfig;

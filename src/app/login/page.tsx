@@ -1,35 +1,58 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { prisma } from "@/lib/prisma";
-import bcrypt from "bcryptjs";
+"use client"; // necessário para usar hooks no client
 
-export const authOptions: NextAuthOptions = {
-  providers: [
-    CredentialsProvider({
-      name: "credentials",
-      credentials: {
-        email: { label: "Email", type: "text" },
-        senha: { label: "Senha", type: "password" },
-      },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.senha) return null;
+import { useState } from "react";
+import { signIn } from "next-auth/react";
+import "./login.css"; // seu CSS puro
 
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-        });
+export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [mensagem, setMensagem] = useState("");
 
-        if (!user) return null;
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
 
-        const valid = await bcrypt.compare(credentials.senha, user.senha);
-        if (!valid) return null;
+    const result = await signIn("credentials", {
+      redirect: false, // não redireciona automaticamente
+      email,
+      senha,
+    });
 
-        return { id: user.id, nome: user.nome, email: user.email };
-      },
-    }),
-  ],
-  session: { strategy: "jwt" },
-  secret: process.env.NEXTAUTH_SECRET,
-};
-const handler = NextAuth(authOptions);
+    if (result?.error) {
+      setMensagem(result.error);
+    } else {
+      setMensagem("Login bem-sucedido!");
+      // aqui você pode redirecionar manualmente
+      // ex: window.location.href = "/diario";
+    }
+  }
 
-export { handler as GET, handler as POST };
+  return (
+    <main className="container">
+      <form onSubmit={handleSubmit} className="formulario">
+        <h1 className="titulo">Login</h1>
+
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="campo"
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
+          className="campo"
+        />
+
+        <button type="submit" className="botao">
+          Entrar
+        </button>
+
+        {mensagem && <p className="mensagem">{mensagem}</p>}
+      </form>
+    </main>
+  );
+}
