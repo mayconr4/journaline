@@ -1,96 +1,67 @@
 "use client";
-import { useState, ChangeEvent, FormEvent } from "react";
-import Sidebar from "../components/Sidebar";
-import { motion } from "framer-motion";
-import "../styles/globals.css";
 
-interface FormData {
-  nome: string;
-  email: string;
-  senha: string;
-}
+import { useState } from "react";
 
-export default function Cadastro() {
-  const [formData, setFormData] = useState<FormData>({
-    nome: "",
-    email: "",
-    senha: "",
-  });
-  const [loading, setLoading] = useState(false);
+export default function RegisterPage() {
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [mensagem, setMensagem] = useState("");
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
-
-  async function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
 
-    try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+    const res = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nome, email, senha }),
+    });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        alert(data.error || "Erro ao cadastrar");
-        setLoading(false);
-        return;
-      }
-
-      alert("Cadastro realizado com sucesso!");
-      setFormData({ nome: "", email: "", senha: "" }); // limpa o formulário
-    } catch (err) {
-      console.error(err);
-      alert("Erro ao cadastrar");
-    } finally {
-      setLoading(false);
-    }
+    const data = await res.json();
+    setMensagem(data.error || "Usuário cadastrado com sucesso!");
   }
 
   return (
-    <div className="container">
-      <main className="main-content">
-        <h1>Junte-se ao Journaline!</h1>
-        <form onSubmit={handleSubmit} className="form">
-          <label>Nome</label>
-          <input
-            type="text"
-            name="nome"
-            value={formData.nome}
-            onChange={handleChange}
-          />
+    <main className="flex min-h-screen items-center justify-center bg-gray-50">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded-xl shadow-md w-80"
+      >
+        <h1 className="text-2xl mb-4 text-center font-semibold">Cadastrar</h1>
 
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
+        <input
+          type="text"
+          placeholder="Nome"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+          className="border p-2 w-full mb-3 rounded"
+        />
+        <input
+          type="email"
+          placeholder="E-mail"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="border p-2 w-full mb-3 rounded"
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
+          className="border p-2 w-full mb-3 rounded"
+        />
 
-          <label>Senha</label>
-          <input
-            type="password"
-            name="senha"
-            value={formData.senha}
-            onChange={handleChange}
-          />
+        <button
+          type="submit"
+          className="bg-blue-500 text-white w-full py-2 rounded hover:bg-blue-600"
+        >
+          Cadastrar
+        </button>
 
-          <motion.button
-            type="submit"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn-primary"
-            disabled={loading}
-          >
-            {loading ? "Cadastrando..." : "Cadastre-se"}
-          </motion.button>
-        </form>
-      </main>
-    </div>
+        {mensagem && (
+          <p className="text-center text-sm mt-3 text-gray-700">{mensagem}</p>
+        )}
+      </form>
+    </main>
   );
 }

@@ -1,11 +1,14 @@
-import { NextResponse } from "next/server";
+// app/api/auth/register/route.ts
 import { prisma } from "@/lib/prisma";
+import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 
 export async function POST(req: Request) {
   try {
-    const { nome, email, senha } = await req.json();
+    const body = await req.json();
+    const { nome, email, senha } = body;
 
+    // Verifica campos
     if (!nome || !email || !senha) {
       return NextResponse.json(
         { error: "Preencha todos os campos" },
@@ -13,21 +16,29 @@ export async function POST(req: Request) {
       );
     }
 
-    const existente = await prisma.user.findUnique({ where: { email } });
-    if (existente) {
+    // Verifica se o e-mail já existe
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+    if (existingUser) {
       return NextResponse.json(
-        { error: "Email já cadastrado" },
-        { status: 409 }
+        { error: "E-mail já cadastrado" },
+        { status: 400 }
       );
     }
 
-    const senhaHash = await bcrypt.hash(senha, 10);
+    // Criptografa a senha
+    const hashedPassword = await bcrypt.hash(senha, 10);
+
+    // Cria o usuário
     const user = await prisma.user.create({
-      data: { nome, email, senha: senhaHash },
+      data: { nome, email, senha: hashedPassword },
     });
 
     return NextResponse.json({ user }, { status: 201 });
-  } catch (e) {
-    return NextResponse.json({ error: "Erro interno" }, { status: 500 });
+  } catch (error) {
+    console.error("❌ Erro no cadastro:", error);
+    return NextResponse.json(
+      { error: "Erro interno no servidor" },
+      { status: 500 }
+    );
   }
 }

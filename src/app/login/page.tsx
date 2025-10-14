@@ -1,74 +1,35 @@
-"use client";
-import { useState, ChangeEvent, FormEvent } from "react";
-import { motion } from "framer-motion";
-import { signIn } from "next-auth/react";
-import "../styles/globals.css";
+import NextAuth, { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { prisma } from "@/lib/prisma";
+import bcrypt from "bcryptjs";
 
-interface FormData {
-  email: string;
-  senha: string;
-}
+export const authOptions: NextAuthOptions = {
+  providers: [
+    CredentialsProvider({
+      name: "credentials",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        senha: { label: "Senha", type: "password" },
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.senha) return null;
 
-export default function Login() {
-  const [formData, setFormData] = useState<FormData>({ email: "", senha: "" });
-  const [loading, setLoading] = useState(false);
+        const user = await prisma.user.findUnique({
+          where: { email: credentials.email },
+        });
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
+        if (!user) return null;
 
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    setLoading(true);
+        const valid = await bcrypt.compare(credentials.senha, user.senha);
+        if (!valid) return null;
 
-    const res = await signIn("credentials", {
-      redirect: false,
-      email: formData.email,
-      senha: formData.senha,
-    });
+        return { id: user.id, nome: user.nome, email: user.email };
+      },
+    }),
+  ],
+  session: { strategy: "jwt" },
+  secret: process.env.NEXTAUTH_SECRET,
+};
+const handler = NextAuth(authOptions);
 
-    if (res?.error) {
-      alert("Email ou senha incorretos");
-      setLoading(false);
-      return;
-    }
-
-    // redireciona após login bem-sucedido
-    window.location.href = "/diario";
-  }
-
-  return (
-    <div className="container">
-      <main className="main-content">
-        <h1>Entrar no Journaline</h1>
-        <form onSubmit={handleSubmit} className="form">
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-
-          <label>Senha</label>
-          <input
-            type="password"
-            name="senha"
-            value={formData.senha}
-            onChange={handleChange}
-          />
-
-          <motion.button
-            type="submit"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn-primary"
-            disabled={loading}
-          >
-            {loading ? "Entrando..." : "Entrar"}
-          </motion.button>
-        </form>
-      </main>
-    </div>
-  );
-}
+export { handler as GET, handler as POST };
