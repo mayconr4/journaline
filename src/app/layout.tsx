@@ -1,3 +1,4 @@
+@ -1,40 +1,24 @@
 "use client"; // ✅ IMPORTANTE: Transforma em Client Component
 
 import "./styles/globals.css";
@@ -8,6 +9,10 @@ import { usePathname } from "next/navigation"; // Importa o hook para pegar a ro
 // ou, se usar 'use client', as propriedades precisam ser definidas no layout.
 // Para simplificar, vou manter a estrutura, mas o Next.js ignora 'metadata' em 'use client'.
 // Você pode mover o metadata para um arquivo 'layout.ts' separado se desejar.
+export const metadata = {
+  title: "Journaline",
+  description: "Diário gamificado",
+};
 
 export default function RootLayout({
   children,
@@ -30,6 +35,8 @@ export default function RootLayout({
           <main className={`main-content ${isHomePage ? "full-width" : ""}`}>
             {children}
           </main>
+          <Sidebar />
+          <main className="main-content">{children}</main>
         </div>
       </body>
     </html>
