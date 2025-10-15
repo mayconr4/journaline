@@ -36,8 +36,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ user }, { status: 201 });
   } catch (error) {
     console.error("❌ Erro no cadastro:", error);
+    // 🎯 Apenas para depuração: inclua a mensagem de erro no JSON em ambiente de desenvolvimento
+    const errorMessage = error instanceof Error ? error.message : "Erro desconhecido";
     return NextResponse.json(
-      { error: "Erro interno no servidor" },
+      { error: "Erro interno no servidor", details: errorMessage }, // Inclui detalhes do erro
       { status: 500 }
     );
   }

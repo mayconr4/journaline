@@ -11,38 +11,52 @@
 }
 
 .logo {
-  width: 200px; /* Tamanho do logo */
-  height: 200px; /* Tamanho do logo */
+  max-width: 60%; /* Logo não deve exceder 60% da largura do contêiner */
+  max-height: 40vh; /* Limita a altura máxima para evitar que ocupe muito espaço */
+  height: auto; /* Mantém a proporção da imagem */
   border-radius: 25px; /* Bordas arredondadas */
-  margin-bottom: 20px; /* Espaço entre o logo e o título */
-  object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave para destaque */
+  margin-bottom: 30px; /* Mais espaço entre o logo e o título */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada */
+  transition: transform 0.3s ease-in-out; /* Transição suave para o hover */
+}
+
+.logo:hover {
+  transform: scale(1.03); /* Leve aumento no hover para interatividade */
 }
 
 .mainContent h1 {
-  font-size: 3.5rem;
+  font-size: 4rem; /* Título maior para impacto */
   font-weight: 800;
-  color: var(--secondary-color); /* Usando o tom mais escuro para o título */
-  margin-bottom: 10px;
-  letter-spacing: -1px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+  color: var(--primary-color); /* Usando a cor primária para o título */
+  margin-bottom: 15px; /* Mais espaço abaixo do título */
+  letter-spacing: -1.5px; /* Ajuste para espaçamento de letras */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra mais suave e visível */
 }
 
 .mainContent p {
-  font-size: 1.5rem;
-  color: var(--text-medium);
-  max-width: 600px;
-  line-height: 1.4;
-  margin-bottom: 30px;
+  font-size: 1.6rem; /* Parágrafo um pouco maior */
+  color: var(--text-dark); /* Usando text-dark para melhor contraste */
+  max-width: 700px; /* Aumenta a largura máxima para o texto */
+  line-height: 1.6; /* Melhor espaçamento entre linhas para legibilidade */
+  margin-bottom: 40px; /* Mais espaço antes do botão */
+  text-align: center; /* Garante que o texto do parágrafo seja centralizado */
 }
+
+/* Botão Começar a Jornada - vamos aprimorá-lo via globals.css ou uma classe mais específica, 
+   mas por agora, garanto que o spacing geral funciona. */
 
 /* Media Query para telas menores */
 @media (max-width: 768px) {
   .mainContent h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
 
   .mainContent p {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+  }
+
+  .logo {
+    max-width: 80%; /* Logo um pouco maior em telas pequenas */
+    margin-bottom: 25px;
   }
 }

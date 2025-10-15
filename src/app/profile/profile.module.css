@@ -1,0 +1,82 @@
+.profileWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Alinha no topo */
+  min-height: 100vh;
+  width: 100%;
+  padding: 40px 20px;
+  background: var(--background-light); /* Fundo claro para o conteúdo principal */
+  overflow-y: auto; /* Permite rolagem se o conteúdo transbordar */
+}
+
+.profileCard {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px; /* Largura máxima para o card do perfil */
+  text-align: center;
+  margin-top: 50px; /* Espaçamento do topo */
+}
+
+.titulo {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  font-weight: 700;
+  color: var(--text-dark);
+  border-bottom: 2px solid var(--sidebar-background);
+  padding-bottom: 0.5rem;
+}
+
+.infoGroup {
+  margin-bottom: 15px;
+}
+
+.infoLabel {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-medium);
+  display: block;
+  margin-bottom: 5px;
+}
+
+.infoValue {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+}
+
+.logoutButton {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 30px;
+}
+
+.logoutButton:hover {
+  background-color: var(--secondary-color);
+}
+
+.loginPrompt {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  text-align: center;
+  margin-top: 50px;
+}
+
+.loginPrompt a {
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.loginPrompt a:hover {
+  text-decoration: underline;
+}

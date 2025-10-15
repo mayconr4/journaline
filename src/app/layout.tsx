@@ -2,8 +2,9 @@
 
 import "./styles/globals.css";
 // ✅ Importações do seu layout
-import LayoutWrapper from "./components/LayoutWrapper";
 import SessionProviderWrapper from "./components/SessionProviderWrapper"; // NOVO
+import LayoutWrapper from "./components/LayoutWrapper"; // Reimportar LayoutWrapper
+import { ThemeProvider } from "./context/ThemeProvider"; // Importar ThemeProvider
 
 export const metadata = {
   title: "Journaline",
@@ -18,10 +19,13 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body>
-        {/* ENVOLVE TUDO NO PROVEDOR DE SESSÃO */}
+        {/* Provedor de sessão global (NextAuth) */}
         <SessionProviderWrapper>
-          {/* O LayoutWrapper tem a lógica do Sidebar */}
-          <LayoutWrapper>{children}</LayoutWrapper>
+          {/* Provedor de Tema para toda a aplicação */}
+          <ThemeProvider>
+            {/* O LayoutWrapper tem a lógica do Sidebar e do conteúdo */}
+            <LayoutWrapper>{children}</LayoutWrapper>
+          </ThemeProvider>
         </SessionProviderWrapper>
       </body>
     </html>
