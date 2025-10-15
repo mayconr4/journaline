@@ -66,6 +66,16 @@
   color: var(--text-dark);
 }
 
+.mensagem.success {
+  color: var(--primary-color); /* Cor verde para mensagens de sucesso */
+  font-weight: 600;
+}
+
+.mensagem.error {
+  color: #e74c3c; /* Cor vermelha para mensagens de erro */
+  font-weight: 600;
+}
+
 .linkLogin {
   margin-top: 1.25rem; /* Usando rem para margin */
   font-size: 0.95rem;

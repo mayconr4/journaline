@@ -1,23 +1,39 @@
-import { getServerSession } from "next-auth";
+import { getServerSession } from "next-auth/next";
+import { Session } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { prisma } from "@/lib/prisma";
-import LogoutButton from "../components/LogoutButton"; // ✅ Importe o novo botão
-import { redirect } from 'next/navigation'; // Importar redirect
+import LogoutButton from "../components/LogoutButton";
+import { redirect } from 'next/navigation';
 import styles from "./profile.module.css"; // Importar CSS modular
-import Link from "next/link"; // Importar Link para o botão de login/cadastro
+import Link from "next/link";
 
 export default async function Perfil() {
-  const session = await getServerSession(authOptions);
+  const session: Session | null = await getServerSession(authOptions);
 
-  if (!session?.user?.email) {
-    redirect('/login'); // Redireciona para login se não estiver logado
+  if (!session || !session.user?.email) {
+    redirect('/login');
   }
 
   const user = await prisma.user.findUnique({
-    where: { email: session.user.email },
+    where: { email: session.user.email as string }, // Garantir que email é string
   });
 
-  // O nome é a informação que passaremos para o botão.
+  if (!user) {
+    return (
+      <main className={styles.profileWrapper}>
+        <div className={styles.profileCard}>
+          <h1 className={styles.titulo}>Usuário não encontrado</h1>
+          <p className={styles.infoValue}>Não foi possível carregar os dados do seu perfil.</p>
+          <Link href="/login" passHref>
+            <p className={styles.linkLogin}>
+              Tentar login novamente
+            </p>
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
   const userName = user?.nome || "Usuário";
   const userEmail = user?.email || "N/A";
 
@@ -30,7 +46,6 @@ export default async function Perfil() {
           <span className={styles.infoValue}>{userEmail}</span>
         </div>
 
-        {/* 🎯 Inserindo o Botão de Logout com a classe do CSS modular */}
         <LogoutButton userName={userName} className={styles.logoutButton} />
       </div>
     </main>

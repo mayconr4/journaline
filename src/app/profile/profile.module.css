@@ -2,95 +2,78 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* Alinha no topo */
+  justify-content: center;
   min-height: 100vh;
   width: 100%;
-  padding: 2.5rem 1.5rem; /* Convertido para rem */
-  background: var(--background-light); /* Fundo claro para o conteúdo principal */
-  overflow-y: auto; /* Permite rolagem se o conteúdo transbordar */
+  background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%); /* Usando o gradiente global */
+  padding: 1.5rem; /* Usando rem para padding */
 }
 
 .profileCard {
   background-color: white;
-  padding: 2rem; /* Convertido para rem */
+  padding: 2rem; /* Usando rem para padding */
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 600px; /* Largura máxima para o card do perfil */
+  max-width: 400px; /* Limita a largura do card */
   text-align: center;
-  margin-top: 3rem; /* Convertido para rem */
 }
 
 .titulo {
-  font-size: 2rem; /* Convertido para rem */
-  margin-bottom: 1.5rem; /* Convertido para rem */
+  font-size: 2rem;
+  margin-bottom: 1.5rem; /* Usando rem para margin */
   font-weight: 700;
-  color: var(--text-dark);
-  border-bottom: 2px solid var(--sidebar-background);
-  padding-bottom: 0.5rem; /* Convertido para rem */
+  color: #333;
 }
 
 .infoGroup {
-  margin-bottom: 1rem; /* Convertido para rem */
+  margin-bottom: 1rem;
 }
 
 .infoLabel {
-  font-size: 1rem; /* Convertido para rem */
   font-weight: 600;
-  color: var(--text-medium);
-  display: block;
-  margin-bottom: 0.3rem; /* Convertido para rem */
+  color: #555;
 }
 
 .infoValue {
-  font-size: 1.1rem; /* Convertido para rem */
-  color: var(--text-dark);
+  margin-left: 0.5rem;
+  color: #333;
 }
 
 .logoutButton {
-  background-color: var(--primary-color);
+  width: 100%;
+  background-color: #e74c3c;
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem; /* Convertido para rem */
+  padding: 0.75rem; /* Usando rem para padding */
   border-radius: 8px;
-  font-size: 1.1rem; /* Convertido para rem */
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: 2rem; /* Convertido para rem */
+  margin-top: 0.75rem; /* Usando rem para margin */
 }
 
 .logoutButton:hover {
-  background-color: var(--secondary-color);
+  background-color: #c0392b;
 }
 
-.loginPrompt {
-  font-size: 1.2rem; /* Convertido para rem */
-  color: var(--text-dark);
-  text-align: center;
-  margin-top: 3rem; /* Convertido para rem */
+.linkLogin {
+  margin-top: 1.25rem;
+  font-size: 0.95rem;
+  color: #6a11cb;
+  cursor: pointer;
 }
 
-.loginPrompt a {
-  color: var(--primary-color);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.loginPrompt a:hover {
+.linkLogin:hover {
   text-decoration: underline;
 }
 
 /* Media Queries para responsividade */
 @media (max-width: 768px) {
-  .profileWrapper {
-    padding: 2rem 1rem;
-  }
-
   .profileCard {
     padding: 1.5rem;
-    max-width: 90%;
-    margin-top: 2rem;
+    max-width: 350px;
   }
 
   .titulo {
@@ -98,40 +81,19 @@
     margin-bottom: 1.2rem;
   }
 
-  .infoGroup {
-    margin-bottom: 0.8rem;
-  }
-
-  .infoLabel {
+  .infoLabel, .infoValue, .logoutButton {
     font-size: 0.95rem;
-    margin-bottom: 0.2rem;
   }
 
-  .infoValue {
-    font-size: 1rem;
-  }
-
-  .logoutButton {
-    padding: 0.6rem 1.2rem;
-    font-size: 1rem;
-    margin-top: 1.5rem;
-  }
-
-  .loginPrompt {
-    font-size: 1.1rem;
-    margin-top: 2rem;
+  .linkLogin {
+    font-size: 0.85rem;
   }
 }
 
 @media (max-width: 480px) {
-  .profileWrapper {
-    padding: 1.5rem 0.5rem;
-  }
-
   .profileCard {
     padding: 1rem;
     max-width: 95%;
-    margin-top: 1.5rem;
   }
 
   .titulo {
@@ -139,27 +101,11 @@
     margin-bottom: 1rem;
   }
 
-  .infoGroup {
-    margin-bottom: 0.6rem;
-  }
-
-  .infoLabel {
-    font-size: 0.85rem;
-    margin-bottom: 0.15rem;
-  }
-
-  .infoValue {
+  .infoLabel, .infoValue, .logoutButton {
     font-size: 0.9rem;
   }
 
-  .logoutButton {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-    margin-top: 1rem;
-  }
-
-  .loginPrompt {
-    font-size: 1rem;
-    margin-top: 1.5rem;
+  .linkLogin {
+    font-size: 0.8rem;
   }
 }
