@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation"; // 🔹 hook para navegação
 import "./login.module.css";
 import Link from "next/link";
+import styles from "./login.module.css";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -30,30 +31,30 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="container">
-      <form onSubmit={handleSubmit} className="formulario">
-        <h1 className="titulo">Login</h1>
+    <main className={styles.formularioWrapper}>
+      <form onSubmit={handleSubmit} className={styles.formulario}>
+        <h1 className={styles.titulo}>Login</h1>
 
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="campo"
+          className={styles.campo}
         />
         <input
           type="password"
           placeholder="Senha"
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
-          className="campo"
+          className={styles.campo}
         />
 
-        <button type="submit" className="botao">
+        <button type="submit" className={styles.botao}>
           Entrar
         </button>
 
-        {mensagem && <p className="mensagem">{mensagem}</p>}
+        {mensagem && <p className={styles.mensagem}>{mensagem}</p>}
 
         <Link href="/cadastro">
           <p>

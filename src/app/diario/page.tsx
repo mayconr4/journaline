@@ -2,7 +2,7 @@
 import { useState, ChangeEvent } from "react";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-import "../styles/globals.css";
+import styles from "./diario.module.css"; // Importar CSS modular
 
 export default function Diario() {
   // 1. Estados
@@ -73,9 +73,9 @@ export default function Diario() {
 
   // 5. Renderização (Conteúdo do Diário)
   return (
-    <div className="container">
+    <div className={styles.diarioWrapper}>
       <main
-        className="main-content"
+        className={styles.diarioContent}
         style={{
           backgroundColor: corFundo,
           backgroundImage: imagemFundo ? `url(${imagemFundo})` : "none",
@@ -83,34 +83,29 @@ export default function Diario() {
         }}
       >
         {/* Saudação Personalizada (Mesmo para deslogados, usa o fallback 'Escritor(a)') */}
-        <h1
-          style={{
-            marginBottom: "1.5rem",
-            borderBottom: "2px solid #e0e0e0",
-            paddingBottom: "0.5rem",
-          }}
-        >
+        <h1 className={styles.saudacao}>
           Olá, {userName}! Seu Diário de Hoje
         </h1>
 
-        <form onSubmit={(e) => e.preventDefault()} className="form">
+        <form onSubmit={(e) => e.preventDefault()} className={styles.formDiario}>
           <label>Título</label>
           <input
             type="text"
             value={titulo}
             onChange={handleChange(setTitulo)}
+            className={styles.campo}
           />
 
           <label>Data</label>
-          <input type="date" value={data} onChange={handleChange(setData)} />
+          <input type="date" value={data} onChange={handleChange(setData)} className={styles.campo} />
 
           <label>Texto</label>
-          <textarea value={texto} onChange={handleChange(setTexto)} />
+          <textarea value={texto} onChange={handleChange(setTexto)} className={styles.campo} />
 
           <button
             type="button"
             onClick={() => setMostrarOpcoes(!mostrarOpcoes)}
-            className="btn-primary"
+            className={styles.btnDiario}
             style={{ marginBottom: "1rem", marginTop: "1rem" }}
           >
             {mostrarOpcoes
@@ -122,13 +117,14 @@ export default function Diario() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="options"
+              className={styles.options}
             >
               <label>Cor de Fundo</label>
               <input
                 type="color"
                 value={corFundo}
                 onChange={(e) => setCorFundo(e.target.value)}
+                className={styles.campo} /* Aplicando o estilo de campo também aqui */
               />
 
               <label>Imagem de Fundo (URL)</label>
@@ -136,9 +132,10 @@ export default function Diario() {
                 type="text"
                 onChange={(e) => setImagemFundo(e.target.value)}
                 placeholder="Cole a URL"
+                className={styles.campo} /* Aplicando o estilo de campo também aqui */
               />
               {imagemFundo && (
-                <img src={imagemFundo} alt="Fundo" className="bg-preview" />
+                <img src={imagemFundo} alt="Fundo" className={styles.bgPreview} />
               )}
             </motion.div>
           )}
@@ -148,7 +145,7 @@ export default function Diario() {
             onClick={salvarEntrada}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="btn-primary"
+            className={styles.btnDiario}
             disabled={loading}
           >
             {loading ? "Salvando..." : "Salvar Diário"}

@@ -1,0 +1,104 @@
+.diarioWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; REMOVIDO para permitir rolagem e alinhamento top */
+  width: 100%;
+  padding: 40px 20px;
+  background: var(--background-light); /* Fundo claro para o conteúdo principal */
+  min-height: 100vh; /* Garante que ocupe a altura total da viewport */
+}
+
+.diarioContent {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px; /* Largura máxima para o conteúdo do diário */
+  text-align: center;
+}
+
+.saudacao {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  font-weight: 700;
+  color: var(--text-dark);
+  border-bottom: 2px solid var(--sidebar-background);
+  padding-bottom: 0.5rem;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.formDiario {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.formDiario label {
+  font-weight: 600;
+  color: var(--text-dark);
+  text-align: left;
+  width: 100%;
+}
+
+.formDiario input[type="text"],
+.formDiario input[type="date"],
+.formDiario input[type="color"],
+.formDiario textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--text-medium);
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--text-dark);
+}
+
+.formDiario input:focus,
+.formDiario textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.btnDiario {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.btnDiario:hover {
+  background-color: var(--secondary-color);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px dashed var(--text-medium);
+  border-radius: 8px;
+}
+
+.options label {
+  text-align: left;
+}
+
+.bg-preview {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
