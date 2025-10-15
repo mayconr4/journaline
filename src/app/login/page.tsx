@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation"; // 🔹 hook para navegação
+import { useRouter } from "next/navigation";
 import "./login.module.css";
 import Link from "next/link";
 
@@ -10,13 +10,13 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [mensagem, setMensagem] = useState("");
-  const router = useRouter(); // 🔹 instância do router
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const result = await signIn("credentials", {
-      redirect: false, // não redireciona automaticamente
+      redirect: false,
       email,
       senha,
     });
@@ -25,7 +25,7 @@ export default function LoginPage() {
       setMensagem("Email ou senha incorretos");
     } else {
       setMensagem("Login bem-sucedido!");
-      router.push("/profile"); // 🔹 redireciona para a página de perfil
+      router.push("/profile");
     }
   }
 

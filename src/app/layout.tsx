@@ -1,28 +1,19 @@
-// app/layout.tsx (Server Component)
-
+// app/layout.tsx
 import "./styles/globals.css";
-// ✅ Importações do seu layout
-import LayoutWrapper from "./components/LayoutWrapper";
-import SessionProviderWrapper from "./components/SessionProviderWrapper"; // NOVO
+import { ReactNode } from "react";
+import SessionProviderWrapper from "./components/SessionProviderWrapper";
 
 export const metadata = {
   title: "Journaline",
   description: "Diário gamificado",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
       <body>
-        {/* ENVOLVE TUDO NO PROVEDOR DE SESSÃO */}
-        <SessionProviderWrapper>
-          {/* O LayoutWrapper tem a lógica do Sidebar */}
-          <LayoutWrapper>{children}</LayoutWrapper>
-        </SessionProviderWrapper>
+        {/* Provedor de sessão global (NextAuth) */}
+        <SessionProviderWrapper>{children}</SessionProviderWrapper>
       </body>
     </html>
   );

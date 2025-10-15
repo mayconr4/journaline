@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import styles from "./cadastro.module.css"; // importa o CSS module
 
 export default function RegisterPage() {
   const [nome, setNome] = useState("");
@@ -22,45 +24,43 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gray-50">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-xl shadow-md w-80"
-      >
-        <h1 className="text-2xl mb-4 text-center font-semibold">Cadastrar</h1>
+    <main className={styles.container}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <h1 className={styles.title}>Cadastrar</h1>
 
         <input
           type="text"
           placeholder="Nome"
           value={nome}
           onChange={(e) => setNome(e.target.value)}
-          className="border p-2 w-full mb-3 rounded"
+          className={styles.input}
         />
+
         <input
           type="email"
           placeholder="E-mail"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="border p-2 w-full mb-3 rounded"
+          className={styles.input}
         />
+
         <input
           type="password"
           placeholder="Senha"
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
-          className="border p-2 w-full mb-3 rounded"
+          className={styles.input}
         />
 
-        <button
-          type="submit"
-          className="bg-blue-500 text-white w-full py-2 rounded hover:bg-blue-600"
-        >
+        <button type="submit" className={styles.buttonPrimary}>
           Cadastrar
         </button>
 
-        {mensagem && (
-          <p className="text-center text-sm mt-3 text-gray-700">{mensagem}</p>
-        )}
+        <Link href="/login" className={styles.buttonSecondary}>
+          Voltar para o login
+        </Link>
+
+        {mensagem && <p className={styles.message}>{mensagem}</p>}
       </form>
     </main>
   );

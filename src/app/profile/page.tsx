@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { prisma } from "@/lib/prisma";
 import LogoutButton from "../components/LogoutButton"; // ✅ Importe o novo botão
+import Sidebar from "../components/Sidebar";
 export default async function Perfil() {
   const session = await getServerSession(authOptions);
 
@@ -22,7 +23,8 @@ export default async function Perfil() {
   const userName = user?.nome || "Usuário";
 
   return (
-    <main style={{ padding: "2rem" }}>
+    <main style={{ padding: "2rem" }} className="container">
+      <Sidebar />
       <h1>Perfil de {userName}</h1>
       <p>Email: {user?.email}</p>
 

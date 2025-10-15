@@ -3,6 +3,7 @@ import { useState, ChangeEvent } from "react";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import "../styles/globals.css";
+import Sidebar from "../components/Sidebar";
 
 export default function Diario() {
   // 1. Estados
@@ -74,6 +75,7 @@ export default function Diario() {
   // 5. Renderização (Conteúdo do Diário)
   return (
     <div className="container">
+      <Sidebar />
       <main
         className="main-content"
         style={{
