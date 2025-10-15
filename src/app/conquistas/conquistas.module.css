@@ -40,6 +40,31 @@
   margin: 0;
 }
 
+.pointsDisplay {
+  font-size: 1.2rem; /* Tamanho da fonte para os pontos */
+  font-weight: 600;
+  color: var(--primary-color); /* Cor de destaque para os pontos */
+  margin-bottom: 1rem; /* Espaçamento abaixo */
+}
+
+.btnAddPoints {
+  background-color: var(--secondary-color); /* Cor de fundo do botão */
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem; /* Preenchimento do botão */
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  margin-bottom: 2rem; /* Espaçamento abaixo do botão */
+}
+
+.btnAddPoints:hover {
+  background-color: var(--primary-color); /* Cor ao passar o mouse */
+  transform: translateY(-2px);
+}
+
 .achievementsGrid {
   display: grid;
   gap: 1.5rem; /* Convertido para rem */
@@ -122,11 +147,15 @@
 .achievement.locked {
   background: var(--sidebar-background);
   color: var(--text-medium);
-  opacity: 0.9;
+  opacity: 0.6; /* Diminui a opacidade para conquistas bloqueadas */
+  pointer-events: none; /* Desabilita interações com conquistas bloqueadas */
+  transform: none; /* Remove a transformação ao passar o mouse para bloqueadas */
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.03);
 }
 
 .achievement.locked .achievementStatus {
   background-color: rgba(0, 0, 0, 0.1);
+  color: var(--text-medium);
 }
 
 /* Media Queries para responsividade */
@@ -149,6 +178,17 @@
     padding: 2rem 1rem;
     font-size: 1.1rem;
     margin-top: 1rem;
+  }
+  
+  .pointsDisplay {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .btnAddPoints {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
   }
 
   .achievementsGrid {
@@ -201,6 +241,17 @@
     padding: 1.5rem 0.8rem;
     font-size: 1rem;
     margin-top: 0.8rem;
+  }
+  
+  .pointsDisplay {
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .btnAddPoints {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
   }
 
   .achievementsGrid {
