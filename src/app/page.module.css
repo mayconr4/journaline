@@ -2,10 +2,21 @@
 
 .mainContent {
   /* Estas regras garantem o estilo da tipografia na home */
-  text-align: center;
-  /* min-height 100vh é redundante aqui, mas se mantiver, não quebra */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza horizontalmente os itens dentro do mainContent */
+  /* text-align: center; REMOVIDO pois align-items fará a centralização dos blocos */
   padding: 40px 20px;
   gap: 20px;
+}
+
+.logo {
+  width: 200px; /* Tamanho do logo */
+  height: 200px; /* Tamanho do logo */
+  border-radius: 25px; /* Bordas arredondadas */
+  margin-bottom: 20px; /* Espaço entre o logo e o título */
+  object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave para destaque */
 }
 
 .mainContent h1 {

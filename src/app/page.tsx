@@ -9,6 +9,7 @@ export default function Home() {
   return (
     <div className="container">
       <main className={styles.mainContent}>
+        <img src="/assets/logo-diario1.png" alt="Journaline Logo" className={styles.logo} />
         <h1>Bem-vindo ao Journaline</h1>
         <p>
           Um diário gamificado para estimular sua criatividade e progresso

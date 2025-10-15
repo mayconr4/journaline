@@ -12,22 +12,47 @@
   --text-dark: #333d29; /* Texto Principal Escuro */
   --text-medium: #656d4a; /* Texto Secundário */
   --sidebar-background: #e0e0e0;
+  --text-color: #ffffff; /* Definindo a cor do texto global como branco para melhor contraste */
 }
 
-body,
-html {
-  font-family: "Times New Roman", serif;
-  background: var(--background-light);
-  color: var(--text-dark);
-  height: 100%; /* Garante que body e html tenham 100% da altura da viewport */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: var(--background-gradient); /* Usando gradiente de fundo */
+  color: var(--text-color);
+  overflow-x: hidden; /* Evita rolagem horizontal */
+  /* Removido display: flex, justify-content e align-items daqui */
+}
+
+#__next {
+  display: flex; /* Principal container flex para Sidebar + Conteúdo */
+  min-height: 100vh; /* Garante que ocupe a altura total da viewport */
+  width: 100%;
+}
+
+/* Removida a classe .container para evitar conflitos */
+/* .container foi substituída por .app-layout e .home-page-layout */
+
+.app-layout {
+  display: flex; /* Para Sidebar e Conteúdo lado a lado */
+  flex-grow: 1; /* Ocupa o espaço restante dentro de __next */
+  min-height: 100vh;
+  width: 100%;
+  flex-direction: row; /* Sidebar e conteúdo lado a lado */
+}
+
+.home-page-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Garante que ocupe a altura total da viewport */
+  width: 100%;
 }
 
 /* Layout Principal */
-.container {
-  display: flex;
-  min-height: 100vh; /* Ocupa a altura total da viewport */
-  width: 100%;
-}
+/* As regras para .container foram ajustadas ou movidas para .app-layout/.home-page-layout */
 
 /* Sidebar */
 .sidebar {
@@ -52,24 +77,20 @@ html {
   font-weight: 700;
 }
 
-/* Conteúdo Principal (Quando o Sidebar ESTÁ presente) */
+/* Conteúdo Principal */
 .main-content {
   flex-grow: 1; /* Ocupa o espaço restante */
   padding: 3rem;
   overflow-y: auto;
+  /* Removendo qualquer centralização aqui, será tratada por .home-page-layout */
 }
 
-/* 🌟 REGRA DE CENTRALIZAÇÃO PARA A HOME 🌟 */
+/* A classe .main-content.full-width não precisará mais de display/flexbox, 
+   já que .home-page-layout fará o trabalho de centralização. */
 .main-content.full-width {
   width: 100%;
   height: 100vh; /* Garante a altura total da viewport */
   padding: 0; /* Remove o padding padrão */
-
-  /* Centralização Flexbox */
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centraliza Horizontalmente */
-  justify-content: center; /* Centraliza Verticalmente */
 }
 
 /* Botões */

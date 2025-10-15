@@ -12,7 +12,7 @@ export default function LayoutWrapper({
   const isHomePage = pathname === "/";
 
   return (
-    <div className="container">
+    <div className={isHomePage ? "home-page-layout" : "app-layout"}>
       {/* Lógica de ocultar o Sidebar */}
       {!isHomePage && <Sidebar />}
 
