@@ -13,7 +13,8 @@ model User {
   email     String   @unique
   senha     String
   createdAt DateTime @default(now())
-
+  pontos    Int      @default(0)
+  nivel     Int      @default(1)
   diarios   Diario[]
 }
 

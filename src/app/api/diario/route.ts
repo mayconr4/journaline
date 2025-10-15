@@ -6,6 +6,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const session = await getServerSession(authOptions);
+
     if (!session?.user?.email) {
       return NextResponse.json(
         { error: "Usuário não autenticado." },
@@ -24,6 +25,7 @@ export async function POST(req: Request) {
 
     const user = await prisma.user.findUnique({
       where: { email: session.user.email },
+      include: { diarios: true },
     });
 
     if (!user) {
@@ -44,7 +46,30 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json({ diario }, { status: 201 });
+    const pontosPorEntrada = 10;
+
+    const usuarioAtualizado = await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        pontos: { increment: pontosPorEntrada },
+      },
+    });
+
+    const novoPontos = usuarioAtualizado.pontos;
+    const novoNivel = Math.min(Math.floor(novoPontos / 30) + 1, 10);
+
+    const proxNivelPontos = Math.min(novoNivel * 30, 30 * 10);
+    const pontosFaltando = Math.max(proxNivelPontos - novoPontos, 0);
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { pontos: novoPontos, nivel: novoNivel },
+    });
+
+    return NextResponse.json(
+      { diario, pontos: novoPontos, nivel: novoNivel, pontosFaltando },
+      { status: 201 }
+    );
   } catch (error) {
     console.error("❌ Erro ao salvar diário:", error);
     return NextResponse.json(
