@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 .diarioWrapper {
   display: flex;
   flex-direction: column;
@@ -103,6 +104,8 @@
   margin-top: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 =======
+=======
+>>>>>>> Stashed changes
 .container {
   display: flex;
   min-height: 100vh;
@@ -233,5 +236,8 @@
   z-index: 1;
   margin: 0 auto;
   max-width: 90%;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
