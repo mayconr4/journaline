@@ -14,12 +14,25 @@
   --sidebar-background: #e0e0e0;
 }
 
-body,
-html {
-  font-family: "Times New Roman", serif;
-  background: var(--background-light);
-  color: var(--text-dark);
-  height: 100%; /* Garante que body e html tenham 100% da altura da viewport */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: var(--background-gradient); /* Usando gradiente de fundo */
+  color: var(--text-color);
+  overflow-x: hidden; /* Evita rolagem horizontal */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#__next, .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Garante que o container ocupe toda a altura da viewport */
+  width: 100%;
 }
 
 /* Layout Principal */
