@@ -14,10 +14,9 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": ".",
+    "baseUrl": ".", // baseUrl na raiz
     "paths": {
-      // CORREÇÃO: Isso mapeia '@/...' para 'src/...'
-      "@/*": ["./src/*"]
+      "@/*": ["*"] // mapeia @/ para a raiz do projeto
     },
     "plugins": [{ "name": "next" }]
   },
