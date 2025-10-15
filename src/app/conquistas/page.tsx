@@ -9,9 +9,9 @@ interface Conquista { id: number; nome: string; desbloqueada: boolean; descricao
 const conquistas: Conquista[] = [
   { id: 1, nome: 'Primeira Entrada', desbloqueada: true, descricao: 'Complete sua primeira entrada no diário.', icon: '✨' },
   { id: 2, nome: '5 Entradas', desbloqueada: false, descricao: 'Faça 5 entradas no seu diário.', icon: '✍️' },
-  { id: 3, nome: 'Diário Completo', desbloqueada: false, descricao: 'Preencha 30 dias no seu diário.', icon: '📖' },
+  { id: 3, nome: 'Novo Nível Visual', desbloqueada: false, descricao: 'Desbloqueie a personalização do fundo do seu diário!', icon: '🎨' },
   { id: 4, nome: 'Despertar Criativo', desbloqueada: true, descricao: 'Escreva uma entrada com mais de 200 palavras.', icon: '💡' },
-  { id: 5, nome: 'Mestre da Consistência', desbloqueada: false, descricao: 'Faça entradas por 7 dias consecutivos.', icon: '🗓️' },
+  { id: 5, nome: 'Mestre da Expressão Visual', desbloqueada: false, descricao: 'Desbloqueie a opção de adicionar imagens às suas entradas!', icon: '🖼️' },
   { id: 6, nome: 'Reflexão Profunda', desbloqueada: false, descricao: 'Utilize todas as opções de humor em suas entradas.', icon: '🤔' },
 ];
 
@@ -52,6 +52,12 @@ export default function Conquistas() {
                 <h2>{c.nome}</h2>
                 <p className={styles.achievementDescription}>{c.descricao}</p>
                 <span className={styles.achievementStatus}>{c.desbloqueada ? 'Desbloqueada' : 'Bloqueada'}</span>
+
+                {c.desbloqueada && (c.id === 3 || c.id === 5) && (
+                  <span className={styles.unlockedFeatureIndicator}>
+                    {c.id === 3 ? 'Fundo Desbloqueado! 🎨' : 'Imagens Desbloqueadas! 🖼️'}
+                  </span>
+                )}
               </motion.div>
             ))}
           </div>

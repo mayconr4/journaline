@@ -5,10 +5,12 @@ import "./styles/globals.css";
 import SessionProviderWrapper from "./components/SessionProviderWrapper"; // NOVO
 import LayoutWrapper from "./components/LayoutWrapper"; // Reimportar LayoutWrapper
 import { ThemeProvider } from "./context/ThemeProvider"; // Importar ThemeProvider
+// import { headers } from 'next/headers'; // REMOVIDO: Importação redundante
 
 export const metadata = {
   title: "Journaline",
   description: "Diário gamificado",
+  viewport: "width=device-width, initial-scale=1.0", // 🎯 Adicionar meta tag viewport
 };
 
 export default function RootLayout({

@@ -12,34 +12,31 @@
   --text-dark: #333d29; /* Texto Principal Escuro */
   --text-medium: #656d4a; /* Texto Secundário */
   --sidebar-background: #e0e0e0;
-  --text-color: #ffffff; /* Definindo a cor do texto global como branco para melhor contraste */
+  --text-color: #ffffff;
+  font-size: 16px; /* Base rem */
 }
 
 html, body {
   height: 100%;
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: var(--background-gradient); /* Usando gradiente de fundo */
+  background: var(--background-gradient);
   color: var(--text-color);
-  overflow-x: hidden; /* Evita rolagem horizontal */
-  /* Removido display: flex, justify-content e align-items daqui */
+  overflow-x: hidden;
 }
 
 #__next {
-  display: flex; /* Principal container flex para Sidebar + Conteúdo */
-  min-height: 100vh; /* Garante que ocupe a altura total da viewport */
+  display: flex;
+  min-height: 100vh;
   width: 100%;
 }
 
-/* Removida a classe .container para evitar conflitos */
-/* .container foi substituída por .app-layout e .home-page-layout */
-
 .app-layout {
-  display: flex; /* Para Sidebar e Conteúdo lado a lado */
-  flex-grow: 1; /* Ocupa o espaço restante dentro de __next */
+  display: flex;
+  flex-grow: 1;
   min-height: 100vh;
   width: 100%;
-  flex-direction: row; /* Sidebar e conteúdo lado a lado */
+  flex-direction: row; /* Padrão desktop */
 }
 
 .home-page-layout {
@@ -47,22 +44,21 @@ html, body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Garante que ocupe a altura total da viewport */
+  min-height: 100vh;
   width: 100%;
 }
 
-/* Layout Principal */
-/* As regras para .container foram ajustadas ou movidas para .app-layout/.home-page-layout */
-
 /* Sidebar */
 .sidebar {
-  width: 250px;
+  width: 250px; /* Largura padrão desktop */
   background: var(--sidebar-background);
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  flex-shrink: 0; /* Impede que o sidebar encolha */
+  flex-shrink: 0;
+  transition: width 0.3s ease-in-out; /* Adiciona transição para a largura */
 }
+
 .sidebar a {
   text-decoration: none;
   color: var(--text-dark);
@@ -70,27 +66,26 @@ html, body {
   font-weight: 500;
   transition: color 0.3s;
 }
+
 .sidebar a:hover {
   color: var(--secondary-color);
 }
+
 .sidebar a.active {
   font-weight: 700;
 }
 
 /* Conteúdo Principal */
 .main-content {
-  flex-grow: 1; /* Ocupa o espaço restante */
+  flex-grow: 1;
   padding: 3rem;
   overflow-y: auto;
-  /* Removendo qualquer centralização aqui, será tratada por .home-page-layout */
 }
 
-/* A classe .main-content.full-width não precisará mais de display/flexbox, 
-   já que .home-page-layout fará o trabalho de centralização. */
 .main-content.full-width {
   width: 100%;
-  height: 100vh; /* Garante a altura total da viewport */
-  padding: 0; /* Remove o padding padrão */
+  height: 100vh;
+  padding: 0;
 }
 
 /* Botões */
@@ -102,14 +97,15 @@ html, body {
   border: none;
   cursor: pointer;
   transition: background 0.3s;
-  text-decoration: none; /* Garante que funcione com Link */
+  text-decoration: none;
   display: inline-block;
+  font-size: 1rem; /* Responsivo */
 }
 .btn-primary:hover {
   background: var(--secondary-color);
 }
 
-/* Formulários (Mantido do seu CSS) */
+/* Formulários */
 form.form {
   display: flex;
   flex-direction: column;
@@ -117,16 +113,18 @@ form.form {
 }
 form label {
   color: var(--text-medium);
+  font-size: 1rem; /* Responsivo */
 }
 form input,
 form textarea {
   padding: 0.75rem;
   border-radius: 8px;
   border: 1px solid #a4ac86;
+  font-size: 1rem; /* Responsivo */
 }
 form textarea {
   height: 10rem;
-  resize: none;
+  resize: vertical; /* Permite redimensionar verticalmente */
 }
 form input:focus,
 form textarea:focus {
@@ -134,24 +132,64 @@ form textarea:focus {
   box-shadow: 0 0 0 2px var(--secondary-color);
 }
 
-/* Achievements (Mantido do seu CSS) */
+/* Media Queries Globais para Responsividade */
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px; /* Base rem menor para mobile */
+  }
+
+  .app-layout {
+    flex-direction: column; /* Pilha vertical em mobile */
+  }
+
+  .sidebar {
+    width: 100%; /* Sidebar ocupa a largura total em mobile */
+    height: auto; /* Altura automática */
+    padding: 1rem; /* Padding menor */
+    flex-direction: row; /* Itens do sidebar em linha */
+    justify-content: space-around; /* Distribui os itens */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Separador */
+  }
+
+  .sidebar a {
+    margin-bottom: 0; /* Remove margem inferior em mobile */
+    padding: 0.5rem;
+  }
+
+  .main-content {
+    padding: 1.5rem; /* Padding menor em mobile */
+  }
+
+  .btn-primary {
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    font-size: 12px; /* Base rem ainda menor para telas muito pequenas */
+  }
+
+  .sidebar {
+    flex-wrap: wrap; /* Permite que os itens do sidebar quebrem linha */
+    justify-content: center; /* Centraliza itens */
+  }
+}
+
+/* Achievements (Ajustes responsivos - se não forem tratados em conquistas.module.css) */
 .achievements-grid {
-  display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Min-width menor */
 }
+
 .achievement {
-  padding: 1.5rem;
-  border-radius: 12px;
-  text-align: center;
+  padding: 1rem; /* Padding menor */
 }
-.achievement.unlocked {
-  background: var(--primary-color);
-  color: white;
+
+.achievement h2 {
+  font-size: 1.2rem;
 }
-.achievement.locked {
-  background: var(--sidebar-background);
-  color: var(--text-medium);
-  opacity: 0.6;
+
+.achievement p {
+  font-size: 0.85rem;
 }
-/* ... Outros estilos que você possa ter ... */

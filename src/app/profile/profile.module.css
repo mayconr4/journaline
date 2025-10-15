@@ -5,45 +5,45 @@
   justify-content: flex-start; /* Alinha no topo */
   min-height: 100vh;
   width: 100%;
-  padding: 40px 20px;
+  padding: 2.5rem 1.5rem; /* Convertido para rem */
   background: var(--background-light); /* Fundo claro para o conteúdo principal */
   overflow-y: auto; /* Permite rolagem se o conteúdo transbordar */
 }
 
 .profileCard {
   background-color: white;
-  padding: 30px;
+  padding: 2rem; /* Convertido para rem */
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 600px; /* Largura máxima para o card do perfil */
   text-align: center;
-  margin-top: 50px; /* Espaçamento do topo */
+  margin-top: 3rem; /* Convertido para rem */
 }
 
 .titulo {
-  font-size: 2rem;
-  margin-bottom: 25px;
+  font-size: 2rem; /* Convertido para rem */
+  margin-bottom: 1.5rem; /* Convertido para rem */
   font-weight: 700;
   color: var(--text-dark);
   border-bottom: 2px solid var(--sidebar-background);
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.5rem; /* Convertido para rem */
 }
 
 .infoGroup {
-  margin-bottom: 15px;
+  margin-bottom: 1rem; /* Convertido para rem */
 }
 
 .infoLabel {
-  font-size: 1rem;
+  font-size: 1rem; /* Convertido para rem */
   font-weight: 600;
   color: var(--text-medium);
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 0.3rem; /* Convertido para rem */
 }
 
 .infoValue {
-  font-size: 1.1rem;
+  font-size: 1.1rem; /* Convertido para rem */
   color: var(--text-dark);
 }
 
@@ -51,13 +51,13 @@
   background-color: var(--primary-color);
   color: white;
   border: none;
-  padding: 12px 25px;
+  padding: 0.75rem 1.5rem; /* Convertido para rem */
   border-radius: 8px;
-  font-size: 1.1rem;
+  font-size: 1.1rem; /* Convertido para rem */
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: 30px;
+  margin-top: 2rem; /* Convertido para rem */
 }
 
 .logoutButton:hover {
@@ -65,10 +65,10 @@
 }
 
 .loginPrompt {
-  font-size: 1.2rem;
+  font-size: 1.2rem; /* Convertido para rem */
   color: var(--text-dark);
   text-align: center;
-  margin-top: 50px;
+  margin-top: 3rem; /* Convertido para rem */
 }
 
 .loginPrompt a {
@@ -79,4 +79,87 @@
 
 .loginPrompt a:hover {
   text-decoration: underline;
+}
+
+/* Media Queries para responsividade */
+@media (max-width: 768px) {
+  .profileWrapper {
+    padding: 2rem 1rem;
+  }
+
+  .profileCard {
+    padding: 1.5rem;
+    max-width: 90%;
+    margin-top: 2rem;
+  }
+
+  .titulo {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .infoGroup {
+    margin-bottom: 0.8rem;
+  }
+
+  .infoLabel {
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .infoValue {
+    font-size: 1rem;
+  }
+
+  .logoutButton {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .loginPrompt {
+    font-size: 1.1rem;
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .profileWrapper {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .profileCard {
+    padding: 1rem;
+    max-width: 95%;
+    margin-top: 1.5rem;
+  }
+
+  .titulo {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .infoGroup {
+    margin-bottom: 0.6rem;
+  }
+
+  .infoLabel {
+    font-size: 0.85rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .infoValue {
+    font-size: 0.9rem;
+  }
+
+  .logoutButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  .loginPrompt {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+  }
 }
