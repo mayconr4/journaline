@@ -14,10 +14,10 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": ".", // já existe
+    "baseUrl": ".",
     "paths": {
-      // <<< adicione esta parte
-      "@/*": ["*"]
+      // CORREÇÃO: Isso mapeia '@/...' para 'src/...'
+      "@/*": ["./src/*"]
     },
     "plugins": [{ "name": "next" }]
   },

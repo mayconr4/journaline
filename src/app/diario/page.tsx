@@ -1,49 +1,38 @@
 "use client";
-
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
+import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 import styles from "./diario.module.css"; // Importar CSS modular
-=======
-import { motion } from "framer-motion";
-import Sidebar from "../components/Sidebar";
-import styles from "./diario.module.css";
->>>>>>> Stashed changes
-=======
-import { motion } from "framer-motion";
-import Sidebar from "../components/Sidebar";
-import styles from "./diario.module.css";
->>>>>>> Stashed changes
-=======
-import { motion } from "framer-motion";
-import Sidebar from "../components/Sidebar";
-import styles from "./diario.module.css";
->>>>>>> Stashed changes
 
 export default function Diario() {
+  // 1. Estados
+  const [titulo, setTitulo] = useState("");
+  const [data, setData] = useState("");
+  const [texto, setTexto] = useState("");
+  const [mostrarOpcoes, setMostrarOpcoes] = useState(false);
+  const [corFundo, setCorFundo] = useState("#FFFFFF");
+  const [imagemFundo, setImagemFundo] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  // 2. Hook de Sessão
   const { data: session } = useSession();
 
-  const [titulo, setTitulo] = useState("");
-  const [dataEntrada, setDataEntrada] = useState("");
-  const [texto, setTexto] = useState("");
-  const [corFundo, setCorFundo] = useState("#FFF8DC");
-  const [imagemFundo, setImagemFundo] = useState<string | null>(null);
-  const [mostrarOpcoes, setMostrarOpcoes] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [ultimoDiario, setUltimoDiario] = useState<any | null>(null);
-
+  // Pega o nome do usuário para a saudação (melhoria)
+  // Se a sessão for null (usuário deslogado), o fallback 'Escritor(a)' será usado.
   const userName =
     session?.user?.name || session?.user?.email?.split("@")[0] || "Escritor(a)";
 
-  const handleChange =
-    (setter: any) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-      setter(e.target.value);
+  // 3. Funções de manipulação de estados
+  function handleChange(setFunc: any) {
+    return (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setFunc(e.target.value);
+  }
 
+  // 4. Função de salvamento (com verificação interna da sessão)
   async function salvarEntrada() {
-    if (!session?.user?.email) {
-      alert("Você precisa estar logado!");
+    // Mantém a verificação de sessão APENAS para bloquear o salvamento da API
+    if (!session || !session.user) {
+      alert("Você precisa estar logado para salvar o diário!");
       return;
     }
 
@@ -54,10 +43,11 @@ export default function Diario() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           titulo,
-          data: dataEntrada,
+          data,
           texto,
           corFundo,
-          imagemFundo: imagemFundo || null,
+          imagemFundo,
+          userId: (session.user as any).id,
         }),
       });
 
@@ -66,14 +56,11 @@ export default function Diario() {
         return;
       }
 
-      const data = await res.json();
-      setUltimoDiario(data); // aqui armazenamos o último diário salvo
-
-      // limpa o form
+      alert("Entrada salva!");
       setTitulo("");
-      setDataEntrada("");
+      setData("");
       setTexto("");
-      setCorFundo("#FFF8DC");
+      setCorFundo("#FFFFFF");
       setImagemFundo(null);
       setMostrarOpcoes(false);
     } catch (err) {
@@ -84,10 +71,8 @@ export default function Diario() {
     }
   }
 
+  // 5. Renderização (Conteúdo do Diário)
   return (
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
     <div className={styles.diarioWrapper}>
       <main
         className={styles.diarioContent}
@@ -98,41 +83,12 @@ export default function Diario() {
         }}
       >
         {/* Saudação Personalizada (Mesmo para deslogados, usa o fallback 'Escritor(a)') */}
-        <h1 className={styles.saudacao}>
-          Olá, {userName}! Seu Diário de Hoje
-        </h1>
+        <h1 className={styles.saudacao}>Olá, {userName}! Seu Diário de Hoje</h1>
 
-        <form onSubmit={(e) => e.preventDefault()} className={styles.formDiario}>
-=======
-    <div className={styles.container}>
-      <Sidebar />
-      <main className={styles.mainContent}>
-        <h1 className={styles.headerTitle}>
-          Olá, {userName}! Escreva seu diário
-        </h1>
-
-        <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
->>>>>>> Stashed changes
-=======
-    <div className={styles.container}>
-      <Sidebar />
-      <main className={styles.mainContent}>
-        <h1 className={styles.headerTitle}>
-          Olá, {userName}! Escreva seu diário
-        </h1>
-
-        <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
->>>>>>> Stashed changes
-=======
-    <div className={styles.container}>
-      <Sidebar />
-      <main className={styles.mainContent}>
-        <h1 className={styles.headerTitle}>
-          Olá, {userName}! Escreva seu diário
-        </h1>
-
-        <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
->>>>>>> Stashed changes
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className={styles.formDiario}
+        >
           <label>Título</label>
           <input
             type="text"
@@ -142,50 +98,29 @@ export default function Diario() {
           />
 
           <label>Data</label>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-          <input type="date" value={data} onChange={handleChange(setData)} className={styles.campo} />
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
           <input
             type="date"
-            value={dataEntrada}
-            onChange={handleChange(setDataEntrada)}
+            value={data}
+            onChange={handleChange(setData)}
+            className={styles.campo}
           />
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
           <label>Texto</label>
-          <textarea value={texto} onChange={handleChange(setTexto)} className={styles.campo} />
+          <textarea
+            value={texto}
+            onChange={handleChange(setTexto)}
+            className={styles.campo}
+          />
 
           <button
             type="button"
-            className={styles.btnPrimary}
             onClick={() => setMostrarOpcoes(!mostrarOpcoes)}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
             className={styles.btnDiario}
             style={{ marginBottom: "1rem", marginTop: "1rem" }}
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
           >
             {mostrarOpcoes
               ? "Ocultar opções"
-              : "Mostrar opções de personalização"}
+              : "Desbloquear opções de imagem e cor"}
           </button>
 
           {mostrarOpcoes && (
@@ -199,52 +134,26 @@ export default function Diario() {
                 type="color"
                 value={corFundo}
                 onChange={(e) => setCorFundo(e.target.value)}
-                className={styles.campo} /* Aplicando o estilo de campo também aqui */
+                className={
+                  styles.campo
+                } /* Aplicando o estilo de campo também aqui */
               />
 
               <label>Imagem de Fundo (URL)</label>
               <input
                 type="text"
-                value={imagemFundo ?? ""}
                 onChange={(e) => setImagemFundo(e.target.value)}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
                 placeholder="Cole a URL"
-                className={styles.campo} /* Aplicando o estilo de campo também aqui */
-=======
-                placeholder="Cole a URL da imagem"
->>>>>>> Stashed changes
+                className={
+                  styles.campo
+                } /* Aplicando o estilo de campo também aqui */
               />
-
               {imagemFundo && (
-<<<<<<< Updated upstream
-                <img src={imagemFundo} alt="Fundo" className={styles.bgPreview} />
-=======
-=======
-                placeholder="Cole a URL da imagem"
-              />
-
-              {imagemFundo && (
->>>>>>> Stashed changes
-=======
-                placeholder="Cole a URL da imagem"
-              />
-
-              {imagemFundo && (
->>>>>>> Stashed changes
                 <img
                   src={imagemFundo}
-                  alt="Preview"
+                  alt="Fundo"
                   className={styles.bgPreview}
                 />
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
               )}
             </motion.div>
           )}
@@ -252,58 +161,14 @@ export default function Diario() {
           <motion.button
             type="button"
             onClick={salvarEntrada}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className={styles.btnDiario}
-=======
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className={styles.btnPrimary}
->>>>>>> Stashed changes
-=======
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className={styles.btnPrimary}
->>>>>>> Stashed changes
-=======
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className={styles.btnPrimary}
->>>>>>> Stashed changes
             disabled={loading}
           >
             {loading ? "Salvando..." : "Salvar Diário"}
           </motion.button>
         </form>
-
-        {/* 🪶 Exibição apenas do último diário salvo */}
-        <section className={styles.diarioContainer}>
-          {ultimoDiario ? (
-            <motion.article
-              key={ultimoDiario.id}
-              className={styles.diarioPage}
-              style={{
-                backgroundColor: ultimoDiario.corFundo,
-                backgroundImage: ultimoDiario.imagemFundo
-                  ? `url(${ultimoDiario.imagemFundo})`
-                  : "none",
-              }}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <h2 className={styles.diarioTitulo}>{ultimoDiario.titulo}</h2>
-              <p className={styles.diarioData}>
-                {new Date(ultimoDiario.createdAt).toLocaleDateString("pt-BR")}
-              </p>
-              <div className={styles.diarioTexto}>{ultimoDiario.texto}</div>
-            </motion.article>
-          ) : (
-            <p>Nenhuma entrada registrada ainda.</p>
-          )}
-        </section>
       </main>
     </div>
   );
