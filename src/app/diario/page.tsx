@@ -4,7 +4,13 @@ import { useState, useEffect, ChangeEvent } from "react";
 import { useSession } from "next-auth/react";
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import styles from "./diario.module.css"; // Importar CSS modular
+=======
+import { motion } from "framer-motion";
+import Sidebar from "../components/Sidebar";
+import styles from "./diario.module.css";
+>>>>>>> Stashed changes
 =======
 import { motion } from "framer-motion";
 import Sidebar from "../components/Sidebar";
@@ -81,6 +87,7 @@ export default function Diario() {
   return (
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <div className={styles.diarioWrapper}>
       <main
         className={styles.diarioContent}
@@ -116,6 +123,16 @@ export default function Diario() {
 
         <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
 >>>>>>> Stashed changes
+=======
+    <div className={styles.container}>
+      <Sidebar />
+      <main className={styles.mainContent}>
+        <h1 className={styles.headerTitle}>
+          Olá, {userName}! Escreva seu diário
+        </h1>
+
+        <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
+>>>>>>> Stashed changes
           <label>Título</label>
           <input
             type="text"
@@ -127,8 +144,11 @@ export default function Diario() {
           <label>Data</label>
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
           <input type="date" value={data} onChange={handleChange(setData)} className={styles.campo} />
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
           <input
@@ -137,6 +157,9 @@ export default function Diario() {
             onChange={handleChange(setDataEntrada)}
           />
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -150,8 +173,11 @@ export default function Diario() {
             onClick={() => setMostrarOpcoes(!mostrarOpcoes)}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             className={styles.btnDiario}
             style={{ marginBottom: "1rem", marginTop: "1rem" }}
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
@@ -183,6 +209,7 @@ export default function Diario() {
                 onChange={(e) => setImagemFundo(e.target.value)}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 placeholder="Cole a URL"
                 className={styles.campo} /* Aplicando o estilo de campo também aqui */
 =======
@@ -200,12 +227,21 @@ export default function Diario() {
 
               {imagemFundo && (
 >>>>>>> Stashed changes
+=======
+                placeholder="Cole a URL da imagem"
+              />
+
+              {imagemFundo && (
+>>>>>>> Stashed changes
                 <img
                   src={imagemFundo}
                   alt="Preview"
                   className={styles.bgPreview}
                 />
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -218,9 +254,15 @@ export default function Diario() {
             onClick={salvarEntrada}
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className={styles.btnDiario}
+=======
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className={styles.btnPrimary}
+>>>>>>> Stashed changes
 =======
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
