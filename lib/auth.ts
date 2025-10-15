@@ -23,10 +23,25 @@ export const authOptions: NextAuthOptions = {
         const valid = await bcrypt.compare(credentials.senha, user.senha);
         if (!valid) return null;
 
-        return { id: user.id, nome: user.nome, email: user.email };
+        // CORREÇÃO: use "name" e não "nome"
+        return { id: user.id, name: user.nome, email: user.email };
       },
     }),
   ],
   session: { strategy: "jwt" },
   secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string;
+      }
+      return session;
+    },
+  },
 };
