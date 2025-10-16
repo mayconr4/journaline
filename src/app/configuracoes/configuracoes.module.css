@@ -68,7 +68,7 @@
 }
 
 .botao {
-  background-color: var(--primary-color);
+  background-color: var(--primary-color); /* Volta para a cor primária do tema */
   color: white;
   border: none;
   padding: 0.75rem 1.5rem; /* Convertido para rem */
@@ -81,7 +81,16 @@
 }
 
 .botao:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-color); /* Volta para a cor secundária do tema no hover */
+}
+
+/* Estilos do botão para o Modo Escuro */
+.theme-escuro .botao {
+  background-color: #333D29; /* Cor desejada para o modo escuro */
+}
+
+.theme-escuro .botao:hover {
+  background-color: #2A3324; /* Cor de hover para o modo escuro */
 }
 
 /* Media Queries para responsividade */
@@ -167,9 +176,4 @@
     font-size: 0.9rem;
     margin-top: 1rem;
   }
-}
-
-/* Estilos específicos para o Modo Escuro */
-.theme-escuro .configCard {
-  background-color: var(--dark-mode-highlight); /* Usa a nova cor no modo escuro */
 }
