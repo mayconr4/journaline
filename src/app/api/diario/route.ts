@@ -1,88 +1,75 @@
-import { prisma } from "lib/prisma";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+// app/api/diario/route.ts
 import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
-export async function POST(req: Request) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
-    if (!session?.user?.email) {
-      return NextResponse.json(
-        { error: "Usuário não autenticado." },
-        { status: 401 }
-      );
-    }
+    if (!session?.user?.email)
+      return NextResponse.json({ error: "Não autenticado" }, { status: 401 });
 
-    const { titulo, data, texto, corFundo, imagemFundo } = await req.json();
-
-    if (!titulo || !data || !texto) {
-      return NextResponse.json(
-        { error: "Título, data e texto são obrigatórios." },
-        { status: 400 }
-      );
-    }
-
+    // Busca o usuário pelo email para obter userId (mais robusto que depender de session.user.id)
     const user = await prisma.user.findUnique({
       where: { email: session.user.email },
     });
-
-    if (!user) {
+    if (!user)
       return NextResponse.json(
         { error: "Usuário não encontrado" },
         { status: 404 }
       );
-    }
+
+    const diarios = await prisma.diario.findMany({
+      where: { userId: user.id },
+      orderBy: { createdAt: "desc" },
+    });
+
+    return NextResponse.json({ diarios });
+  } catch (err) {
+    console.error("GET /api/diario error:", err);
+    return NextResponse.json({ error: "Erro interno" }, { status: 500 });
+  }
+}
+
+export async function POST(req: Request) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.email)
+      return NextResponse.json({ error: "Não autenticado" }, { status: 401 });
+
+    const body = await req.json();
+    const { titulo, data, texto, corFundo, imagemFundo } = body;
+
+    if (!titulo || !texto)
+      return NextResponse.json(
+        { error: "Campos obrigatórios ausentes" },
+        { status: 400 }
+      );
+
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+    });
+    if (!user)
+      return NextResponse.json(
+        { error: "Usuário não encontrado" },
+        { status: 404 }
+      );
 
     const diario = await prisma.diario.create({
       data: {
         titulo,
-        data,
+        data: data ?? new Date().toISOString().split("T")[0], // se não enviar, usa hoje (YYYY-MM-DD)
         texto,
-        corFundo,
-        imagemFundo,
+        corFundo: corFundo ?? "#FFFFFF",
+        imagemFundo: imagemFundo ?? null,
         userId: user.id,
       },
     });
 
     return NextResponse.json({ diario }, { status: 201 });
-  } catch (error) {
-    console.error("❌ Erro ao salvar diário:", error);
-    return NextResponse.json(
-      { error: "Erro interno no servidor." },
-      { status: 500 }
-    );
-  }
-}
-
-export async function GET() {
-  try {
-    const session = await getServerSession(authOptions);
-
-    if (!session?.user?.email) {
-      return NextResponse.json(
-        { error: "Usuário não autenticado." },
-        { status: 401 }
-      );
-    }
-
-    const user = await prisma.user.findUnique({
-      where: { email: session.user.email },
-      include: { diarios: true },
-    });
-
-    if (!user) {
-      return NextResponse.json(
-        { error: "Usuário não encontrado." },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json({ diarios: user.diarios }, { status: 200 });
-  } catch (error) {
-    console.error("❌ Erro ao buscar diários:", error);
-    return NextResponse.json(
-      { error: "Erro interno no servidor." },
-      { status: 500 }
-    );
+  } catch (err) {
+    console.error("POST /api/diario error:", err);
+    return NextResponse.json({ error: "Erro interno" }, { status: 500 });
   }
 }

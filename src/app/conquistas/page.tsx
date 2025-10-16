@@ -1,28 +1,46 @@
 'use client';
-import Sidebar from '../components/Sidebar';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import styles from "./conquistas.module.css"; // Importar CSS modular
 
 // Para ícones, você pode integrar uma biblioteca como react-icons. Por enquanto, usaremos placeholders.
-interface Conquista { id: number; nome: string; desbloqueada: boolean; descricao: string; icon: string; }
+interface Conquista { id: number; nome: string; desbloqueada: boolean; descricao: string; icon: string; pointsRequired: number; }
 
-const conquistas: Conquista[] = [
-  { id: 1, nome: 'Primeira Entrada', desbloqueada: true, descricao: 'Complete sua primeira entrada no diário.', icon: '✨' },
-  { id: 2, nome: '5 Entradas', desbloqueada: false, descricao: 'Faça 5 entradas no seu diário.', icon: '✍️' },
-  { id: 3, nome: 'Diário Completo', desbloqueada: false, descricao: 'Preencha 30 dias no seu diário.', icon: '📖' },
-  { id: 4, nome: 'Despertar Criativo', desbloqueada: true, descricao: 'Escreva uma entrada com mais de 200 palavras.', icon: '💡' },
-  { id: 5, nome: 'Mestre da Consistência', desbloqueada: false, descricao: 'Faça entradas por 7 dias consecutivos.', icon: '🗓️' },
-  { id: 6, nome: 'Reflexão Profunda', desbloqueada: false, descricao: 'Utilize todas as opções de humor em suas entradas.', icon: '🤔' },
+const allConquistas: Omit<Conquista, 'desbloqueada'>[] = [
+  { id: 1, nome: 'Primeira Entrada', descricao: 'Complete sua primeira entrada no diário.', icon: '✨', pointsRequired: 0 }, // Começa desbloqueada (0 pontos)
+  { id: 2, nome: '5 Entradas', descricao: 'Faça 5 entradas no seu diário.', icon: '✍️', pointsRequired: 30 },
+  { id: 3, nome: 'Mais um nível conquistado', descricao: 'Desbloqueie a personalização do fundo do seu diário!', icon: '🎨', pointsRequired: 60 },
+  { id: 4, nome: 'Despertar Criativo', descricao: 'Escreva uma entrada com mais de 200 palavras.', icon: '💡', pointsRequired: 90 },
+  { id: 5, nome: 'Desbloqueia adicionar imagem', descricao: 'Desbloqueie a opção de adicionar imagens às suas entradas!', icon: '🖼️', pointsRequired: 120 },
+  { id: 6, nome: 'Reflexão Profunda', descricao: 'Utilize todas as opções de humor em suas entradas.', icon: '🤔', pointsRequired: 150 },
 ];
 
 export default function Conquistas() {
-  // Para simular um estado sem conquistas, você pode usar: const conquistasExemplo: Conquista[] = [];
+  const [userPoints, setUserPoints] = useState(0); // Pontos do usuário
+  const [conquistas, setConquistas] = useState<Conquista[]>([]);
+
+  useEffect(() => {
+    // Carregar pontos do usuário e status de conquistas do backend ou localStorage
+    // Por enquanto, vamos simular que o usuário tem 0 pontos e só a primeira conquista desbloqueada
+    const initialConquistas = allConquistas.map(c => ({
+      ...c,
+      desbloqueada: c.pointsRequired <= userPoints
+    }));
+    setConquistas(initialConquistas);
+  }, [userPoints]);
+
+  const handleAddPoints = () => {
+    setUserPoints(prevPoints => prevPoints + 10);
+  };
+
   const hasConquistas = conquistas.length > 0;
 
   return (
     <main className={styles.conquistasWrapper}>
       <div className={styles.conquistasContent}>
         <h1 className={styles.titulo}>Conquistas</h1>
+        <p className={styles.pointsDisplay}>Seus Pontos: {userPoints}</p>
+        <button onClick={handleAddPoints} className={styles.btnAddPoints}>Adicionar 10 Pontos (Simulação)</button>
 
         {!hasConquistas && (
           <motion.div
@@ -52,6 +70,12 @@ export default function Conquistas() {
                 <h2>{c.nome}</h2>
                 <p className={styles.achievementDescription}>{c.descricao}</p>
                 <span className={styles.achievementStatus}>{c.desbloqueada ? 'Desbloqueada' : 'Bloqueada'}</span>
+
+                {c.desbloqueada && (c.id === 3 || c.id === 5) && (
+                  <span className={styles.unlockedFeatureIndicator}>
+                    {c.id === 3 ? 'Fundo Desbloqueado! 🎨' : 'Imagens Desbloqueadas! 🖼️'}
+                  </span>
+                )}
               </motion.div>
             ))}
           </div>

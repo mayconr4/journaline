@@ -2,25 +2,58 @@
 
 import { useState } from "react";
 import styles from "./cadastro.module.css";
-import Link from "next/link"; // Importar Link para o botão de login
+import Link from "next/link";
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
 export default function RegisterPage() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [mensagem, setMensagem] = useState("");
+  const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setMensagem(""); // Limpa mensagens anteriores
+    setMessageType(''); // Limpa tipo de mensagem anterior
 
-    const res = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nome, email, senha }),
-    });
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, email, senha }),
+      });
 
-    const data = await res.json();
-    setMensagem(data.error || "Usuário cadastrado com sucesso!");
+      const data = await res.json();
+
+      if (res.ok) {
+        setMensagem("Usuário cadastrado com sucesso! Redirecionando...");
+        setMessageType('success');
+
+        // Login automático após o registro
+        const signInResult = await signIn('credentials', {
+          redirect: false, // Não redireciona automaticamente
+          email,
+          senha,
+        });
+
+        if (signInResult?.ok) {
+          router.push('/profile'); // Redireciona para a página de perfil
+        } else {
+          setMensagem(signInResult?.error || "Erro ao fazer login automaticamente.");
+          setMessageType('error');
+        }
+      } else {
+        setMensagem(data.details || data.error || "Erro ao cadastrar usuário.");
+        setMessageType('error');
+      }
+    } catch (error) {
+      console.error("Erro de rede ou servidor:", error);
+      setMensagem("Erro de rede ou servidor. Tente novamente.");
+      setMessageType('error');
+    }
   }
 
   return (
@@ -55,7 +88,7 @@ export default function RegisterPage() {
         </button>
 
         {mensagem && (
-          <p className={styles.mensagem}>{mensagem}</p>
+          <p className={`${styles.mensagem} ${messageType === 'error' ? styles.error : styles.success}`}>{mensagem}</p>
         )}
 
         <Link href="/login" passHref>
