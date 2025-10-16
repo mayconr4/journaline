@@ -13,6 +13,14 @@
   margin: 0 auto 2rem auto;
 }
 
+/* Wrapper para centralizar todo o conteúdo da página do diário */
+.diarioPageWrapper {
+  width: 100%;
+  max-width: 900px; /* Largura máxima para o conteúdo da página */
+  margin: 0 auto; /* Centraliza o wrapper */
+  padding: 2rem 0;
+}
+
 .form label {
   font-weight: 600;
   color: var(--text-dark); /* Cor do texto, adaptável ao tema */
@@ -68,21 +76,28 @@
   flex-direction: column;
   gap: 2rem;
   align-items: center;
+  width: 100%; /* Garante que o container ocupe a largura do wrapper */
 }
 
 .diarioPage {
   width: 80%;
   max-width: 800px;
-  min-height: 500px;
   padding: 3rem 2rem;
   border-radius: 16px;
   box-shadow: var(--shadow-medium); /* Sombra adaptável ao tema */
-  background-color: var(--journal-accent); /* Aplicando a nova cor */
+  background-color: var(--background-light); /* Cor de fundo padrão para o tema claro */
+  border: 1px solid var(--border-color); /* Contorno visível */
   background-size: cover;
   background-position: center;
   color: var(--text-dark); /* Cor do texto, adaptável ao tema */
   font-family: "Georgia", serif;
   position: relative;
+}
+
+/* Estilo específico para o .diarioPage no modo escuro */
+.theme-escuro .diarioPage {
+  background-color: var(--journal-accent); /* Usa a cor definida para diários no modo escuro */
+  color: var(--text-dark); /* Garante a cor do texto no modo escuro */
 }
 
 /* leve overlay quando há imagem */

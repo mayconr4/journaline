@@ -15,6 +15,7 @@
   padding: 2rem; /* Convertido para rem */
   border-radius: 12px;
   box-shadow: var(--shadow-medium); /* Sombra adaptável ao tema */
+  border: 1px solid var(--border-color); /* Contorno visível */
   width: 100%;
   max-width: 600px; /* Largura máxima para o card de configurações */
   text-align: center;
