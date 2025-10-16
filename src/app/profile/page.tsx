@@ -61,17 +61,19 @@ export default async function Perfil() {
             {diarios.map((diario) => (
               <li key={diario.id} className={styles.diarioCard}>
                 <h3 className={styles.diarioTitulo}>{diario.titulo}</h3>
-                <p className={styles.diarioData}>{diario.data}</p>
+                <p className={styles.diarioData}>📅 {diario.data}</p>
                 <p className={styles.diarioTexto}>
                   {diario.texto.length > 120
                     ? diario.texto.substring(0, 120) + "..."
                     : diario.texto}
                 </p>
+
+                {/* 🔗 Link para a página do diário */}
                 <Link
                   href={`/diario/${diario.id}`}
                   className={styles.verMaisLink}
                 >
-                  Ver mais
+                  Ler diário completo →
                 </Link>
               </li>
             ))}
