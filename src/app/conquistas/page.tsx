@@ -1,9 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import styles from "./conquistas.module.css";
-import { getSession } from "next-auth/react";
-import { fetchUsuario } from "@/lib/fetchUsuario";
+import styles from "./conquistas.module.css"; // Importar CSS modular
 
 // Para ícones, você pode integrar uma biblioteca como react-icons. Por enquanto, usaremos placeholders.
 interface Conquista {
@@ -61,28 +59,22 @@ const allConquistas: Omit<Conquista, "desbloqueada">[] = [
 ];
 
 export default function Conquistas() {
-  const [userPoints, setUserPoints] = useState(0);
-  const [userNivel, setUserNivel] = useState(1);
+  const [userPoints, setUserPoints] = useState(0); // Pontos do usuário
   const [conquistas, setConquistas] = useState<Conquista[]>([]);
 
   useEffect(() => {
-    const atualizarConquistas = allConquistas.map((c) => ({
+    // Carregar pontos do usuário e status de conquistas do backend ou localStorage
+    // Por enquanto, vamos simular que o usuário tem 0 pontos e só a primeira conquista desbloqueada
+    const initialConquistas = allConquistas.map((c) => ({
       ...c,
-      desbloqueada: userPoints >= c.pointsRequired,
+      desbloqueada: c.pointsRequired <= userPoints,
     }));
-    setConquistas(atualizarConquistas);
+    setConquistas(initialConquistas);
   }, [userPoints]);
 
-  useEffect(() => {
-    async function carregarUsuario() {
-      const usuario = await fetchUsuario();
-      if (usuario) {
-        setUserPoints(usuario.pontos ?? 0);
-        setUserNivel(usuario.nivel ?? 1);
-      }
-    }
-    carregarUsuario();
-  }, []);
+  const handleAddPoints = () => {
+    setUserPoints((prevPoints) => prevPoints + 10);
+  };
 
   const hasConquistas = conquistas.length > 0;
 
@@ -90,9 +82,10 @@ export default function Conquistas() {
     <main className={styles.conquistasWrapper}>
       <div className={styles.conquistasContent}>
         <h1 className={styles.titulo}>Conquistas</h1>
-        <p className={styles.pointsDisplay}>
-          Seus Pontos: {userPoints} | Nível: {userNivel}
-        </p>
+        <p className={styles.pointsDisplay}>Seus Pontos: {userPoints}</p>
+        <button onClick={handleAddPoints} className={styles.btnAddPoints}>
+          Adicionar 10 Pontos (Simulação)
+        </button>
 
         {!hasConquistas && (
           <motion.div
