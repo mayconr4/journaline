@@ -84,6 +84,7 @@
   padding: 3rem 2rem;
   border-radius: 16px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  background-color: var(--journal-accent); /* Aplicando a nova cor */
   background-size: cover;
   background-position: center;
   color: #222;
@@ -128,6 +129,24 @@
   z-index: 1;
   margin: 0 auto;
   max-width: 90%;
+}
+
+/* Estilo para o botão de Excluir */
+.btnExcluir {
+  background-color: #dc3545; /* Vermelho padrão para exclusão */
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem; /* Espaçamento acima do botão */
+}
+
+.btnExcluir:hover {
+  background-color: #c82333; /* Um tom mais escuro no hover */
 }
 
 /* Media Queries para responsividade */
