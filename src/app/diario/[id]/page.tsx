@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import styles from "../[id]/diario.module.css";
+import styles from "../diario.module.css";
 import Link from "next/link";
 
 interface DiarioPageProps {
