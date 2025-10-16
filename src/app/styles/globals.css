@@ -15,14 +15,43 @@
   --text-color: #ffffff;
   font-size: 16px; /* Base rem */
   --journal-accent: #A4AC86; /* Nova cor solicitada */
+  --shadow-medium: 0 0 15px rgba(0, 0, 0, 0.1); /* Sombra padrão para cards */
+}
+
+/* Estilos para o tema ESCURO */
+.theme-escuro {
+  --primary-color: #5C6BC0; /* Azul índigo mais suave */
+  --secondary-color: #7986CB; /* Azul mais claro */
+  --highlight-color: #B39DDB; /* Roxo suave */
+  --accent-color: #90A4AE; /* Cinza azulado */
+  --journal-accent: #616161; /* Cinza escuro para destaque */
+
+  --text-dark: #e0e0e0;
+  --text-medium: #bdbdbd;
+  --text-light: #333;
+  --background-light: #263238; /* Fundo escuro */
+  --background-medium: #424242; /* Cards, elementos */
+  --background-dark: #212121; /* Outros fundos */
+  --sidebar-background: #424242;
+  --border-color: #555;
+  --shadow-medium: 0 0 15px rgba(0, 0, 0, 0.3); /* Sombra mais escura para cards no modo escuro */
+  --dark-mode-highlight: #414833; /* Nova cor para destaque no modo escuro */
+}
+
+/* Transições suaves para mudanças de tema */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 html, body {
   height: 100%;
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: var(--background-gradient);
-  color: var(--text-color);
+  background-color: var(--background-light);
+  color: var(--text-dark);
   overflow-x: hidden;
 }
 
@@ -52,12 +81,13 @@ html, body {
 /* Sidebar */
 .sidebar {
   width: 250px; /* Largura padrão desktop */
-  background: var(--sidebar-background);
+  background-color: var(--sidebar-background);
+  color: var(--text-dark);
   display: flex;
   flex-direction: column;
   padding: 2rem;
   flex-shrink: 0;
-  transition: width 0.3s ease-in-out; /* Adiciona transição para a largura */
+  transition: background-color 0.3s ease, color 0.3s ease, width 0.3s ease-in-out; /* Adiciona transição para a largura */
 }
 
 .sidebar a {

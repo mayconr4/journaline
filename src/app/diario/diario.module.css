@@ -2,7 +2,7 @@
   text-align: center;
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
-  color: #333;
+  color: var(--text-dark); /* Cor do título, adaptável ao tema */
 }
 
 .form {
@@ -15,6 +15,7 @@
 
 .form label {
   font-weight: 600;
+  color: var(--text-dark); /* Cor do texto, adaptável ao tema */
 }
 
 .form input[type="text"],
@@ -22,9 +23,11 @@
 .form textarea {
   padding: 0.6rem;
   border-radius: 8px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-color); /* Borda adaptável ao tema */
   font-size: 0.95rem;
   width: 100%;
+  background-color: var(--background-medium); /* Fundo do input/textarea, adaptável ao tema */
+  color: var(--text-dark); /* Cor do texto, adaptável ao tema */
 }
 
 .form textarea {
@@ -47,6 +50,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  border: 1px dashed var(--border-color); /* Borda adaptável ao tema */
 }
 
 .bgPreview {
@@ -55,7 +59,7 @@
   border-radius: 8px;
   object-fit: cover;
   margin-top: 0.5rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color); /* Borda adaptável ao tema */
 }
 
 /* === NOVO ESTILO DE PÁGINA DE LIVRO === */
@@ -72,11 +76,11 @@
   min-height: 500px;
   padding: 3rem 2rem;
   border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-medium); /* Sombra adaptável ao tema */
   background-color: var(--journal-accent); /* Aplicando a nova cor */
   background-size: cover;
   background-position: center;
-  color: #222;
+  color: var(--text-dark); /* Cor do texto, adaptável ao tema */
   font-family: "Georgia", serif;
   position: relative;
 }
@@ -86,7 +90,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--background-medium); /* Overlay adaptável ao tema */
   border-radius: 16px;
   pointer-events: none;
 }
@@ -104,7 +108,7 @@
   position: relative;
   text-align: center;
   font-style: italic;
-  color: #555;
+  color: var(--text-medium); /* Cor do texto, adaptável ao tema */
   margin-bottom: 2rem;
   z-index: 1;
 }

@@ -6,15 +6,15 @@
   min-height: 100vh;
   width: 100%;
   padding: 2.5rem 1.5rem; /* Convertido para rem */
-  background: var(--background-light); /* Fundo claro para o conteúdo principal */
+  background-color: var(--background-light); /* Fundo da página, adaptável ao tema */
   overflow-y: auto; /* Permite rolagem se o conteúdo transbordar */
 }
 
 .configCard {
-  background-color: white;
+  background-color: var(--background-medium); /* Fundo do card, adaptável ao tema */
   padding: 2rem; /* Convertido para rem */
   border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-medium); /* Sombra adaptável ao tema */
   width: 100%;
   max-width: 600px; /* Largura máxima para o card de configurações */
   text-align: center;
@@ -25,8 +25,8 @@
   font-size: 2rem; /* Convertido para rem */
   margin-bottom: 1.5rem; /* Convertido para rem */
   font-weight: 700;
-  color: var(--text-dark);
-  border-bottom: 2px solid var(--sidebar-background);
+  color: var(--text-dark); /* Cor do título, adaptável ao tema */
+  border-bottom: 2px solid var(--border-color); /* Borda adaptável ao tema */
   padding-bottom: 0.5rem; /* Convertido para rem */
 }
 
@@ -36,13 +36,13 @@
   align-items: center;
   margin-bottom: 1.25rem; /* Convertido para rem */
   padding: 0.6rem 0; /* Convertido para rem */
-  border-bottom: 1px solid var(--sidebar-background);
+  border-bottom: 1px solid var(--border-color); /* Borda adaptável ao tema */
 }
 
 .settingLabel {
   font-size: 1.1rem; /* Convertido para rem */
   font-weight: 500;
-  color: var(--text-dark);
+  color: var(--text-dark); /* Cor do texto, adaptável ao tema */
 }
 
 .checkbox {
@@ -54,10 +54,10 @@
 .select {
   padding: 0.5rem 0.75rem; /* Convertido para rem */
   border-radius: 8px;
-  border: 1px solid var(--text-medium);
+  border: 1px solid var(--border-color); /* Borda adaptável ao tema */
   font-size: 1rem; /* Convertido para rem */
-  color: var(--text-dark);
-  background-color: white;
+  color: var(--text-dark); /* Cor do texto, adaptável ao tema */
+  background-color: var(--background-medium); /* Fundo do select, adaptável ao tema */
   cursor: pointer;
 }
 
@@ -167,4 +167,9 @@
     font-size: 0.9rem;
     margin-top: 1rem;
   }
+}
+
+/* Estilos específicos para o Modo Escuro */
+.theme-escuro .configCard {
+  background-color: var(--dark-mode-highlight); /* Usa a nova cor no modo escuro */
 }
