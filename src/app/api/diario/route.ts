@@ -1,8 +1,8 @@
 // app/api/diario/route.ts
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth/next";
 
 export async function POST(req: Request) {
   try {
