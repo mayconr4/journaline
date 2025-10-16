@@ -123,7 +123,7 @@ export default function Diario() {
   }
 
   return (
-    <main className={styles.mainContent}>
+    <>
       <h1 className={styles.headerTitle}>
         Olá, {userName}! Escreva seu diário
       </h1>
@@ -237,6 +237,6 @@ export default function Diario() {
           ))
         )}
       </section>
-    </main>
+    </>
   );
 }
