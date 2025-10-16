@@ -55,7 +55,7 @@ export async function POST(req: Request) {
       },
     });
 
-    const novoPontos = usuarioAtualizado.pontos;
+    const novoPontos = usuarioAtualizado.pontos ?? 0;
     const novoNivel = Math.min(Math.floor(novoPontos / 30) + 1, 10);
 
     const proxNivelPontos = Math.min(novoNivel * 30, 30 * 10);
