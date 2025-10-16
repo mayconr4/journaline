@@ -48,6 +48,9 @@ export default async function Perfil() {
       <div className={styles.infoGroup}>
         <span className={styles.infoLabel}>Email:</span>
         <span className={styles.infoValue}>{userEmail}</span>
+      </div>
+
+      <div className={styles.infoGroup}>
         <span className={styles.infoLabel}>Pontos:</span>
         <span className={styles.infoValue}>{userPoints}</span>
       </div>
