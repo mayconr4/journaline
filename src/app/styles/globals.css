@@ -16,6 +16,7 @@
   font-size: 16px; /* Base rem */
   --journal-accent: #A4AC86; /* Nova cor solicitada */
   --shadow-medium: 0 0 15px rgba(0, 0, 0, 0.1); /* Sombra padrão para cards */
+  --background-gradient: linear-gradient(135deg, #f5f5f5, #e0e0e0); /* Gradiente de fundo claro */
 }
 
 /* Estilos para o tema ESCURO */
@@ -30,12 +31,13 @@
   --text-medium: #bdbdbd;
   --text-light: #333;
   --background-light: #263238; /* Fundo escuro */
-  --background-medium: #424242; /* Cards, elementos */
+  --background-medium: #414833; /* Cards, elementos - Nova cor solicitada */
   --background-dark: #212121; /* Outros fundos */
   --sidebar-background: #424242;
   --border-color: #555;
   --shadow-medium: 0 0 15px rgba(0, 0, 0, 0.3); /* Sombra mais escura para cards no modo escuro */
   --dark-mode-highlight: #414833; /* Nova cor para destaque no modo escuro */
+  --background-gradient: linear-gradient(135deg, #2c3e50, #212121); /* Gradiente de fundo escuro */
 }
 
 /* Transições suaves para mudanças de tema */
@@ -50,7 +52,7 @@ html, body {
   height: 100%;
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background-color: var(--background-light);
+  background: var(--background-gradient);
   color: var(--text-dark);
   overflow-x: hidden;
 }
@@ -109,8 +111,11 @@ html, body {
 /* Conteúdo Principal */
 .main-content {
   flex-grow: 1;
-  padding: 3rem;
-  overflow-y: auto;
+  display: flex; /* Adiciona flexbox */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  padding: 3rem; /* Padding padrão */
+  overflow-y: auto; /* Permite rolagem se o conteúdo transbordar */
 }
 
 .main-content.full-width {
