@@ -123,7 +123,7 @@ export default function Diario() {
   }
 
   return (
-    <>
+    <div className={styles.diarioPageWrapper}>
       <h1 className={styles.headerTitle}>
         Olá, {userName}! Escreva seu diário
       </h1>
@@ -142,10 +142,15 @@ export default function Diario() {
           type="date"
           value={dataEntrada}
           onChange={handleChange(setDataEntrada)}
+          className={styles.campo} /* Aplica estilo campo para consistência */
         />
 
         <label>Texto</label>
-        <textarea value={texto} onChange={handleChange(setTexto)} className={styles.campo} />
+        <textarea
+          value={texto}
+          onChange={handleChange(setTexto)}
+          className={styles.campo}
+        />
 
         <button
           type="button"
@@ -168,7 +173,7 @@ export default function Diario() {
               type="color"
               value={corFundo}
               onChange={(e) => setCorFundo(e.target.value)}
-              className={styles.campo} /* Aplicando o estilo de campo também aqui */
+              // Removido className={styles.campo} para input[type="color"]
             />
 
             <label>Imagem de Fundo (URL)</label>
@@ -177,6 +182,7 @@ export default function Diario() {
               value={imagemFundo ?? ""}
               onChange={(e) => setImagemFundo(e.target.value)}
               placeholder="Cole a URL da imagem"
+              className={styles.campo} /* Adiciona estilo campo para input de imagem */
             />
 
             {imagemFundo && (
@@ -213,7 +219,7 @@ export default function Diario() {
               key={diario.id}
               className={styles.diarioPage}
               style={{
-                backgroundColor: diario.corFundo,
+                // Removendo background color inline para usar CSS modular
                 backgroundImage: diario.imagemFundo
                   ? `url(${diario.imagemFundo})`
                   : "none",
@@ -229,7 +235,7 @@ export default function Diario() {
               <button
                 type="button"
                 onClick={() => handleDelete(diario.id)}
-                className={styles.btnExcluir} // Você precisará definir este estilo
+                className={styles.btnExcluir}
               >
                 Excluir
               </button>
@@ -237,6 +243,6 @@ export default function Diario() {
           ))
         )}
       </section>
-    </>
+    </div>
   );
 }
