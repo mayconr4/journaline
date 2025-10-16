@@ -38,12 +38,23 @@ export default async function Perfil() {
   const userEmail = user.email || "N/A";
   const diarios = user.diarios;
 
+  const userPoints = user.pontos ?? 0;
+  const userLevel = user.nivel ?? 1;
+
   return (
     <div className={styles.profileCard}>
       <h1 className={styles.titulo}>Perfil de {userName}</h1>
+
       <div className={styles.infoGroup}>
         <span className={styles.infoLabel}>Email:</span>
         <span className={styles.infoValue}>{userEmail}</span>
+        <span className={styles.infoLabel}>Pontos:</span>
+        <span className={styles.infoValue}>{userPoints}</span>
+      </div>
+
+      <div className={styles.infoGroup}>
+        <span className={styles.infoLabel}>Nível:</span>
+        <span className={styles.infoValue}>{userLevel}</span>
       </div>
 
       <LogoutButton userName={userName} className={styles.logoutButton} />
