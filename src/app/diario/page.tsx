@@ -2,25 +2,9 @@
 
 import { useState, useEffect, ChangeEvent } from "react";
 import { useSession } from "next-auth/react";
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-import styles from "./diario.module.css"; // Importar CSS modular
-=======
 import { motion } from "framer-motion";
 import Sidebar from "../components/Sidebar";
 import styles from "./diario.module.css";
->>>>>>> Stashed changes
-=======
-import { motion } from "framer-motion";
-import Sidebar from "../components/Sidebar";
-import styles from "./diario.module.css";
->>>>>>> Stashed changes
-=======
-import { motion } from "framer-motion";
-import Sidebar from "../components/Sidebar";
-import styles from "./diario.module.css";
->>>>>>> Stashed changes
 
 export default function Diario() {
   const { data: session } = useSession();
@@ -32,7 +16,34 @@ export default function Diario() {
   const [imagemFundo, setImagemFundo] = useState<string | null>(null);
   const [mostrarOpcoes, setMostrarOpcoes] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [ultimoDiario, setUltimoDiario] = useState<any | null>(null);
+  const [diarios, setDiarios] = useState<any[]>([]); // Estado para armazenar todos os diários
+  const [carregandoDiarios, setCarregandoDiarios] = useState(true); // Estado de carregamento
+
+  // Função para carregar os diários do backend
+  const fetchDiarios = async () => {
+    if (!session?.user?.email) {
+      setCarregandoDiarios(false);
+      return;
+    }
+    setCarregandoDiarios(true);
+    try {
+      const res = await fetch("/api/diario");
+      if (res.ok) {
+        const data = await res.json();
+        setDiarios(data.diarios);
+      } else {
+        console.error("Erro ao carregar diários:", await res.json());
+      }
+    } catch (error) {
+      console.error("Erro de rede ao carregar diários:", error);
+    } finally {
+      setCarregandoDiarios(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDiarios();
+  }, [session]); // Recarrega os diários quando a sessão muda
 
   const userName =
     session?.user?.name || session?.user?.email?.split("@")[0] || "Escritor(a)";
@@ -49,25 +60,29 @@ export default function Diario() {
 
     setLoading(true);
     try {
+      const bodyContent = {
+        titulo,
+        data: dataEntrada,
+        texto,
+        corFundo,
+        imagemFundo: imagemFundo || null,
+      };
+      console.log("Enviando dados para a API:", bodyContent);
       const res = await fetch("/api/diario", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          titulo,
-          data: dataEntrada,
-          texto,
-          corFundo,
-          imagemFundo: imagemFundo || null,
-        }),
+        body: JSON.stringify(bodyContent),
       });
 
       if (!res.ok) {
-        alert("Erro ao salvar entrada");
+        const errorData = await res.json();
+        console.error("API Error:", errorData);
+        alert(`Erro ao salvar entrada: ${errorData.error || res.statusText}`);
         return;
       }
 
       const data = await res.json();
-      setUltimoDiario(data); // aqui armazenamos o último diário salvo
+      fetchDiarios(); // Recarrega a lista completa de diários após salvar
 
       // limpa o form
       setTitulo("");
@@ -84,227 +99,144 @@ export default function Diario() {
     }
   }
 
+  async function handleDelete(id: string) {
+    if (!confirm("Tem certeza que deseja excluir este diário?")) {
+      return;
+    }
+    try {
+      const res = await fetch(`/api/diario?id=${id}`, {
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        alert("Diário excluído com sucesso!");
+        fetchDiarios(); // Recarrega a lista de diários
+      } else {
+        const errorData = await res.json();
+        console.error("Erro ao excluir diário:", errorData);
+        alert(`Erro ao excluir diário: ${errorData.error || res.statusText}`);
+      }
+    } catch (error) {
+      console.error("Erro de rede ao excluir diário:", error);
+      alert("Erro de rede ao excluir diário.");
+    }
+  }
+
   return (
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    <div className={styles.diarioWrapper}>
-      <main
-        className={styles.diarioContent}
-        style={{
-          backgroundColor: corFundo,
-          backgroundImage: imagemFundo ? `url(${imagemFundo})` : "none",
-          backgroundSize: "cover",
-        }}
-      >
-        {/* Saudação Personalizada (Mesmo para deslogados, usa o fallback 'Escritor(a)') */}
-        <h1 className={styles.saudacao}>
-          Olá, {userName}! Seu Diário de Hoje
-        </h1>
+    <>
+      <h1 className={styles.headerTitle}>
+        Olá, {userName}! Escreva seu diário
+      </h1>
 
-        <form onSubmit={(e) => e.preventDefault()} className={styles.formDiario}>
-=======
-    <div className={styles.container}>
-      <Sidebar />
-      <main className={styles.mainContent}>
-        <h1 className={styles.headerTitle}>
-          Olá, {userName}! Escreva seu diário
-        </h1>
+      <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
+        <label>Título</label>
+        <input
+          type="text"
+          value={titulo}
+          onChange={handleChange(setTitulo)}
+          className={styles.campo}
+        />
 
-        <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
->>>>>>> Stashed changes
-=======
-    <div className={styles.container}>
-      <Sidebar />
-      <main className={styles.mainContent}>
-        <h1 className={styles.headerTitle}>
-          Olá, {userName}! Escreva seu diário
-        </h1>
+        <label>Data</label>
+        <input
+          type="date"
+          value={dataEntrada}
+          onChange={handleChange(setDataEntrada)}
+        />
 
-        <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
->>>>>>> Stashed changes
-=======
-    <div className={styles.container}>
-      <Sidebar />
-      <main className={styles.mainContent}>
-        <h1 className={styles.headerTitle}>
-          Olá, {userName}! Escreva seu diário
-        </h1>
+        <label>Texto</label>
+        <textarea value={texto} onChange={handleChange(setTexto)} className={styles.campo} />
 
-        <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
->>>>>>> Stashed changes
-          <label>Título</label>
-          <input
-            type="text"
-            value={titulo}
-            onChange={handleChange(setTitulo)}
-            className={styles.campo}
-          />
+        <button
+          type="button"
+          className={styles.btnPrimary}
+          onClick={() => setMostrarOpcoes(!mostrarOpcoes)}
+        >
+          {mostrarOpcoes
+            ? "Ocultar opções"
+            : "Mostrar opções de personalização"}
+        </button>
 
-          <label>Data</label>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-          <input type="date" value={data} onChange={handleChange(setData)} className={styles.campo} />
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-          <input
-            type="date"
-            value={dataEntrada}
-            onChange={handleChange(setDataEntrada)}
-          />
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-
-          <label>Texto</label>
-          <textarea value={texto} onChange={handleChange(setTexto)} className={styles.campo} />
-
-          <button
-            type="button"
-            className={styles.btnPrimary}
-            onClick={() => setMostrarOpcoes(!mostrarOpcoes)}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-            className={styles.btnDiario}
-            style={{ marginBottom: "1rem", marginTop: "1rem" }}
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+        {mostrarOpcoes && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className={styles.options}
           >
-            {mostrarOpcoes
-              ? "Ocultar opções"
-              : "Mostrar opções de personalização"}
-          </button>
+            <label>Cor de Fundo</label>
+            <input
+              type="color"
+              value={corFundo}
+              onChange={(e) => setCorFundo(e.target.value)}
+              className={styles.campo} /* Aplicando o estilo de campo também aqui */
+            />
 
-          {mostrarOpcoes && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className={styles.options}
-            >
-              <label>Cor de Fundo</label>
-              <input
-                type="color"
-                value={corFundo}
-                onChange={(e) => setCorFundo(e.target.value)}
-                className={styles.campo} /* Aplicando o estilo de campo também aqui */
+            <label>Imagem de Fundo (URL)</label>
+            <input
+              type="text"
+              value={imagemFundo ?? ""}
+              onChange={(e) => setImagemFundo(e.target.value)}
+              placeholder="Cole a URL da imagem"
+            />
+
+            {imagemFundo && (
+              <img
+                src={imagemFundo}
+                alt="Preview"
+                className={styles.bgPreview}
               />
+            )}
+          </motion.div>
+        )}
 
-              <label>Imagem de Fundo (URL)</label>
-              <input
-                type="text"
-                value={imagemFundo ?? ""}
-                onChange={(e) => setImagemFundo(e.target.value)}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                placeholder="Cole a URL"
-                className={styles.campo} /* Aplicando o estilo de campo também aqui */
-=======
-                placeholder="Cole a URL da imagem"
->>>>>>> Stashed changes
-              />
+        <motion.button
+          type="button"
+          onClick={salvarEntrada}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
+          className={styles.btnPrimary}
+          disabled={loading}
+        >
+          {loading ? "Salvando..." : "Salvar Diário"}
+        </motion.button>
+      </form>
 
-              {imagemFundo && (
-<<<<<<< Updated upstream
-                <img src={imagemFundo} alt="Fundo" className={styles.bgPreview} />
-=======
-=======
-                placeholder="Cole a URL da imagem"
-              />
-
-              {imagemFundo && (
->>>>>>> Stashed changes
-=======
-                placeholder="Cole a URL da imagem"
-              />
-
-              {imagemFundo && (
->>>>>>> Stashed changes
-                <img
-                  src={imagemFundo}
-                  alt="Preview"
-                  className={styles.bgPreview}
-                />
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-              )}
-            </motion.div>
-          )}
-
-          <motion.button
-            type="button"
-            onClick={salvarEntrada}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={styles.btnDiario}
-=======
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className={styles.btnPrimary}
->>>>>>> Stashed changes
-=======
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className={styles.btnPrimary}
->>>>>>> Stashed changes
-=======
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className={styles.btnPrimary}
->>>>>>> Stashed changes
-            disabled={loading}
-          >
-            {loading ? "Salvando..." : "Salvar Diário"}
-          </motion.button>
-        </form>
-
-        {/* 🪶 Exibição apenas do último diário salvo */}
-        <section className={styles.diarioContainer}>
-          {ultimoDiario ? (
+      {/* 🪶 Exibição apenas do último diário salvo */}
+      <section className={styles.diarioContainer}>
+        {carregandoDiarios ? (
+          <p>Carregando diários...</p>
+        ) : diarios.length === 0 ? (
+          <p>Nenhuma entrada registrada ainda.</p>
+        ) : (
+          diarios.map((diario) => (
             <motion.article
-              key={ultimoDiario.id}
+              key={diario.id}
               className={styles.diarioPage}
               style={{
-                backgroundColor: ultimoDiario.corFundo,
-                backgroundImage: ultimoDiario.imagemFundo
-                  ? `url(${ultimoDiario.imagemFundo})`
+                backgroundColor: diario.corFundo,
+                backgroundImage: diario.imagemFundo
+                  ? `url(${diario.imagemFundo})`
                   : "none",
               }}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <h2 className={styles.diarioTitulo}>{ultimoDiario.titulo}</h2>
+              <h2 className={styles.diarioTitulo}>{diario.titulo}</h2>
               <p className={styles.diarioData}>
-                {new Date(ultimoDiario.createdAt).toLocaleDateString("pt-BR")}
+                {new Date(diario.createdAt).toLocaleDateString("pt-BR")}
               </p>
-              <div className={styles.diarioTexto}>{ultimoDiario.texto}</div>
+              <div className={styles.diarioTexto}>{diario.texto}</div>
+              <button
+                type="button"
+                onClick={() => handleDelete(diario.id)}
+                className={styles.btnExcluir} // Você precisará definir este estilo
+              >
+                Excluir
+              </button>
             </motion.article>
-          ) : (
-            <p>Nenhuma entrada registrada ainda.</p>
-          )}
-        </section>
-      </main>
-    </div>
+          ))
+        )}
+      </section>
+    </>
   );
 }

@@ -73,3 +73,54 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Erro interno" }, { status: 500 });
   }
 }
+
+export async function DELETE(req: Request) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.email)
+      return NextResponse.json({ error: "Não autenticado" }, { status: 401 });
+
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
+    if (!id)
+      return NextResponse.json(
+        { error: "ID do diário ausente" },
+        { status: 400 }
+      );
+
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+    });
+    if (!user)
+      return NextResponse.json(
+        { error: "Usuário não encontrado" },
+        { status: 404 }
+      );
+
+    const diarioToDelete = await prisma.diario.findUnique({
+      where: { id: id },
+    });
+
+    if (!diarioToDelete)
+      return NextResponse.json(
+        { error: "Diário não encontrado" },
+        { status: 404 }
+      );
+
+    if (diarioToDelete.userId !== user.id)
+      return NextResponse.json(
+        { error: "Não autorizado a excluir este diário" },
+        { status: 403 }
+      );
+
+    await prisma.diario.delete({
+      where: { id: id },
+    });
+
+    return NextResponse.json({ message: "Diário excluído com sucesso" }, { status: 200 });
+  } catch (err) {
+    console.error("DELETE /api/diario error:", err);
+    return NextResponse.json({ error: "Erro interno" }, { status: 500 });
+  }
+}

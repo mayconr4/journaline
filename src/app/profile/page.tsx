@@ -20,17 +20,15 @@ export default async function Perfil() {
 
   if (!user) {
     return (
-      <main className={styles.profileWrapper}>
-        <div className={styles.profileCard}>
-          <h1 className={styles.titulo}>Usuário não encontrado</h1>
-          <p className={styles.infoValue}>
-            Não foi possível carregar os dados do seu perfil.
-          </p>
-          <Link href="/login" passHref>
-            <p className={styles.linkLogin}>Tentar login novamente</p>
-          </Link>
-        </div>
-      </main>
+      <div className={styles.profileCard}>
+        <h1 className={styles.titulo}>Usuário não encontrado</h1>
+        <p className={styles.infoValue}>
+          Não foi possível carregar os dados do seu perfil.
+        </p>
+        <Link href="/login" passHref>
+          <p className={styles.linkLogin}>Tentar login novamente</p>
+        </Link>
+      </div>
     );
   }
 
