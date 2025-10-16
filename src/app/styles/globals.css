@@ -14,18 +14,22 @@
   --sidebar-background: #e0e0e0;
   --text-color: #ffffff;
   font-size: 16px; /* Base rem */
-  --journal-accent: #A4AC86; /* Nova cor solicitada */
+  --journal-accent: #a4ac86; /* Nova cor solicitada */
   --shadow-medium: 0 0 15px rgba(0, 0, 0, 0.1); /* Sombra padrão para cards */
   --border-color: #d1d5db; /* Cor padrão para bordas no tema claro */
-  --background-gradient: linear-gradient(135deg, #f5f5f5, #e0e0e0); /* Gradiente de fundo claro */
+  --background-gradient: linear-gradient(
+    135deg,
+    #f5f5f5,
+    #e0e0e0
+  ); /* Gradiente de fundo claro */
 }
 
 /* Estilos para o tema ESCURO */
 .theme-escuro {
-  --primary-color: #5C6BC0; /* Azul índigo mais suave */
-  --secondary-color: #7986CB; /* Azul mais claro */
-  --highlight-color: #B39DDB; /* Roxo suave */
-  --accent-color: #90A4AE; /* Cinza azulado */
+  --primary-color: #5c6bc0; /* Azul índigo mais suave */
+  --secondary-color: #7986cb; /* Azul mais claro */
+  --highlight-color: #b39ddb; /* Roxo suave */
+  --accent-color: #90a4ae; /* Cinza azulado */
   --journal-accent: #616161; /* Cinza escuro para destaque */
 
   --text-dark: #e0e0e0;
@@ -38,7 +42,11 @@
   --border-color: #555;
   --shadow-medium: 0 0 15px rgba(0, 0, 0, 0.3); /* Sombra mais escura para cards no modo escuro */
   --dark-mode-highlight: #414833; /* Nova cor para destaque no modo escuro */
-  --background-gradient: linear-gradient(135deg, #2c3e50, #212121); /* Gradiente de fundo escuro */
+  --background-gradient: linear-gradient(
+    135deg,
+    #2c3e50,
+    #212121
+  ); /* Gradiente de fundo escuro */
 }
 
 /* Transições suaves para mudanças de tema */
@@ -49,10 +57,11 @@ html {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   background: var(--background-gradient);
   color: var(--text-dark);
   overflow-x: hidden;
@@ -90,7 +99,8 @@ html, body {
   flex-direction: column;
   padding: 2rem;
   flex-shrink: 0;
-  transition: background-color 0.3s ease, color 0.3s ease, width 0.3s ease-in-out; /* Adiciona transição para a largura */
+  transition: background-color 0.3s ease, color 0.3s ease,
+    width 0.3s ease-in-out; /* Adiciona transição para a largura */
 }
 
 .sidebar a {
@@ -216,7 +226,10 @@ form textarea:focus {
 /* Achievements (Ajustes responsivos - se não forem tratados em conquistas.module.css) */
 .achievements-grid {
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Min-width menor */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(180px, 1fr)
+  ); /* Min-width menor */
 }
 
 .achievement {
@@ -239,7 +252,7 @@ form textarea:focus {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: #a68a64;
   position: fixed;
   height: 100vh;
   left: 0;
@@ -250,4 +263,87 @@ form textarea:focus {
 .sidebar a {
   color: var(--text-light);
   text-decoration: none;
+}
+/* Sidebar padrão (desktop) */
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #a68a64;
+  color: #fff;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+/* Links do sidebar */
+.sidebar a {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.sidebar a.active {
+  background-color: #a68a64;
+}
+
+/* Conteúdo principal ajustado para não ficar atrás do sidebar */
+.main-content {
+  margin-left: 250px;
+  transition: all 0.3s ease;
+}
+
+/* Tablet e mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 12px;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+}
+
+/* Mobile pequeno: sidebar escondido por padrão e toggle */
+@media (max-width: 480px) {
+  .sidebar {
+    display: none; /* inicialmente escondido */
+  }
+
+  .sidebar.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 100vh;
+    background-color: #1a1a1a;
+    z-index: 1000;
+    padding: 16px;
+  }
+
+  /* Botão de abrir sidebar */
+  .menu-toggle {
+    display: block;
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 1100;
+    background-color: #1a1a1a;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+  }
 }
