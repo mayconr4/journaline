@@ -3,20 +3,23 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
   width: 100%;
   background: var(--background-gradient); /* Usando o gradiente global */
   padding: 1.5rem; /* Usando rem para padding */
 }
 
 .formulario {
-  background-color: white;
+  background-color: var(--background-light); /* Fundo do formulário, adaptável ao tema */
   padding: 2rem; /* Usando rem para padding */
   border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-medium); /* Sombra adaptável ao tema */
   width: 100%;
   max-width: 400px; /* Limita a largura do formulário */
   text-align: center;
+}
+
+.theme-escuro .formulario {
+  background-color: var(--background-medium); /* Usa a cor de cards do modo escuro */
 }
 
 .titulo {
