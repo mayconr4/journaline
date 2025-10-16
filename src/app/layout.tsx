@@ -10,7 +10,10 @@ import { ThemeProvider } from "./context/ThemeProvider"; // Importar ThemeProvid
 export const metadata = {
   title: "Journaline",
   description: "Diário gamificado",
-  viewport: "width=device-width, initial-scale=1.0", // 🎯 Adicionar meta tag viewport
+  viewport: "width=device-width, initial-scale=1.0",
+  icons: {
+    icon: '/assets/icon.png',
+  },
 };
 
 export default function RootLayout({
@@ -21,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body>
+        <link rel="icon" href="/assets/icon.png" /> {/* Favicon fallback */}
         {/* Provedor de sessão global (NextAuth) */}
         <SessionProviderWrapper>
           {/* Provedor de Tema para toda a aplicação */}

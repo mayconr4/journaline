@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/globals.css";
 
 const links = [
@@ -18,6 +18,15 @@ const links = [
 export default function Sidebar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false); // Novo estado
+
+  useEffect(() => {
+    setIsMounted(true); // Define como true após a montagem no cliente
+  }, []);
+
+  if (!isMounted) {
+    return null; // Não renderiza nada no servidor
+  }
 
   return (
     <>
