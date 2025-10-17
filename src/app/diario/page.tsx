@@ -1,10 +1,18 @@
 "use client";
 
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
-import Sidebar from "../components/Sidebar";
 import styles from "./diario.module.css";
+
+// Interface para tipar os diários
+interface DiarioEntry {
+  id: string;
+  titulo: string;
+  texto: string;
+  imagemFundo?: string | null;
+  createdAt: string;
+}
 
 export default function Diario() {
   const { data: session } = useSession();
@@ -16,11 +24,11 @@ export default function Diario() {
   const [imagemFundo, setImagemFundo] = useState<string | null>(null);
   const [mostrarOpcoes, setMostrarOpcoes] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [diarios, setDiarios] = useState<any[]>([]); // Estado para armazenar todos os diários
-  const [carregandoDiarios, setCarregandoDiarios] = useState(true); // Estado de carregamento
+  const [diarios, setDiarios] = useState<DiarioEntry[]>([]);
+  const [carregandoDiarios, setCarregandoDiarios] = useState(true);
 
   // Função para carregar os diários do backend
-  const fetchDiarios = async () => {
+  const fetchDiarios = useCallback(async () => {
     if (!session?.user?.email) {
       setCarregandoDiarios(false);
       return;
@@ -39,17 +47,19 @@ export default function Diario() {
     } finally {
       setCarregandoDiarios(false);
     }
-  };
+  }, [session]);
 
   useEffect(() => {
     fetchDiarios();
-  }, [session]); // Recarrega os diários quando a sessão muda
+  }, [fetchDiarios]);
 
   const userName =
     session?.user?.name || session?.user?.email?.split("@")[0] || "Escritor(a)";
 
+  // Função genérica para inputs e textarea
   const handleChange =
-    (setter: any) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    (setter: React.Dispatch<React.SetStateAction<string>>) =>
+    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setter(e.target.value);
 
   async function salvarEntrada() {
@@ -67,7 +77,7 @@ export default function Diario() {
         corFundo,
         imagemFundo: imagemFundo || null,
       };
-      console.log("Enviando dados para a API:", bodyContent);
+
       const res = await fetch("/api/diario", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -81,10 +91,10 @@ export default function Diario() {
         return;
       }
 
-      const data = await res.json();
-      fetchDiarios(); // Recarrega a lista completa de diários após salvar
+      await res.json();
+      fetchDiarios();
 
-      // limpa o form
+      // Limpar formulário
       setTitulo("");
       setDataEntrada("");
       setTexto("");
@@ -100,17 +110,13 @@ export default function Diario() {
   }
 
   async function handleDelete(id: string) {
-    if (!confirm("Tem certeza que deseja excluir este diário?")) {
-      return;
-    }
-    try {
-      const res = await fetch(`/api/diario?id=${id}`, {
-        method: "DELETE",
-      });
+    if (!confirm("Tem certeza que deseja excluir este diário?")) return;
 
+    try {
+      const res = await fetch(`/api/diario?id=${id}`, { method: "DELETE" });
       if (res.ok) {
         alert("Diário excluído com sucesso!");
-        fetchDiarios(); // Recarrega a lista de diários
+        fetchDiarios();
       } else {
         const errorData = await res.json();
         console.error("Erro ao excluir diário:", errorData);
@@ -142,7 +148,7 @@ export default function Diario() {
           type="date"
           value={dataEntrada}
           onChange={handleChange(setDataEntrada)}
-          className={styles.campo} /* Aplica estilo campo para consistência */
+          className={styles.campo}
         />
 
         <label>Texto</label>
@@ -173,7 +179,6 @@ export default function Diario() {
               type="color"
               value={corFundo}
               onChange={(e) => setCorFundo(e.target.value)}
-              // Removido className={styles.campo} para input[type="color"]
             />
 
             <label>Imagem de Fundo (URL)</label>
@@ -182,7 +187,7 @@ export default function Diario() {
               value={imagemFundo ?? ""}
               onChange={(e) => setImagemFundo(e.target.value)}
               placeholder="Cole a URL da imagem"
-              className={styles.campo} /* Adiciona estilo campo para input de imagem */
+              className={styles.campo}
             />
 
             {imagemFundo && (
@@ -207,7 +212,6 @@ export default function Diario() {
         </motion.button>
       </form>
 
-      {/* 🪶 Exibição apenas do último diário salvo */}
       <section className={styles.diarioContainer}>
         {carregandoDiarios ? (
           <p>Carregando diários...</p>
@@ -219,7 +223,6 @@ export default function Diario() {
               key={diario.id}
               className={styles.diarioPage}
               style={{
-                // Removendo background color inline para usar CSS modular
                 backgroundImage: diario.imagemFundo
                   ? `url(${diario.imagemFundo})`
                   : "none",
