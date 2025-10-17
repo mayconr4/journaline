@@ -1,39 +1,102 @@
-'use client';
-import { useState, ChangeEvent, FormEvent } from 'react';
-import Sidebar from '../components/Sidebar';
-import { motion } from 'framer-motion';
-import '../styles/globals.css';
+"use client";
 
-interface FormData { nome: string; email: string; senha: string; }
+import { useState } from "react";
+import styles from "./cadastro.module.css";
+import Link from "next/link";
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
-export default function Cadastro() {
-  const [formData, setFormData] = useState<FormData>({ nome: '', email: '', senha: '' });
+export default function RegisterPage() {
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [mensagem, setMensagem] = useState("");
+  const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
+  const router = useRouter();
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setMensagem(""); // Limpa mensagens anteriores
+    setMessageType(''); // Limpa tipo de mensagem anterior
+
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, email, senha }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setMensagem("Usuário cadastrado com sucesso! Redirecionando...");
+        setMessageType('success');
+
+        // Login automático após o registro
+        const signInResult = await signIn('credentials', {
+          redirect: false, // Não redireciona automaticamente
+          email,
+          senha,
+        });
+
+        if (signInResult?.ok) {
+          router.push('/profile'); // Redireciona para a página de perfil
+        } else {
+          setMensagem(signInResult?.error || "Erro ao fazer login automaticamente.");
+          setMessageType('error');
+        }
+      } else {
+        setMensagem(data.details || data.error || "Erro ao cadastrar usuário.");
+        setMessageType('error');
+      }
+    } catch (error) {
+      console.error("Erro de rede ou servidor:", error);
+      setMensagem("Erro de rede ou servidor. Tente novamente.");
+      setMessageType('error');
+    }
   }
-  function handleSubmit(e: FormEvent) { e.preventDefault(); }
 
   return (
-    <div className="container">
-    
-      <main className="main-content">
-        <h1>Junte-se ao Journaline!</h1>
-        <form onSubmit={handleSubmit} className="form">
-          <label>Nome</label>
-          <input type="text" name="nome" value={formData.nome} onChange={handleChange} />
+    <main className={styles.cadastroWrapper}>
+      <form onSubmit={handleSubmit} className={styles.formulario}>
+        <h1 className={styles.titulo}>Cadastrar</h1>
 
-          <label>Email</label>
-          <input type="email" name="email" value={formData.email} onChange={handleChange} />
+        <input
+          type="text"
+          placeholder="Nome"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+          className={styles.campo}
+        />
+        <input
+          type="email"
+          placeholder="E-mail"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className={styles.campo}
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
+          className={styles.campo}
+        />
 
-          <label>Senha</label>
-          <input type="password" name="senha" value={formData.senha} onChange={handleChange} />
+        <button type="submit" className={styles.botao}>
+          Cadastrar
+        </button>
 
-          <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-primary">
-            Cadastre-se
-          </motion.button>
-        </form>
-      </main>
-    </div>
+        {mensagem && (
+          <p className={`${styles.mensagem} ${messageType === 'error' ? styles.error : styles.success}`}>{mensagem}</p>
+        )}
+
+        <Link href="/login" passHref>
+          <p className={styles.linkLogin}>
+            Já tem cadastro? <b>Faça login</b>
+          </p>
+        </Link>
+      </form>
+    </main>
   );
 }

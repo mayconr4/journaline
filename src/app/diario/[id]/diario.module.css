@@ -1,0 +1,80 @@
+.pageContainer {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: #f0e6d2;
+  font-family: "Georgia", serif;
+}
+
+.card {
+  position: relative;
+  width: 90%;
+  max-width: 800px;
+  min-height: 600px;
+  background: #fffaf0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 2rem;
+  line-height: 1.8;
+  z-index: 1;
+}
+
+.backgroundImage {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.15;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+}
+
+.titulo {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.data {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.texto {
+  white-space: pre-wrap;
+  text-align: justify;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+}
+
+.autor {
+  font-style: italic;
+  color: #555;
+}
+
+.voltar {
+  text-decoration: none;
+  color: #0070f3;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.voltar:hover {
+  color: #0040aa;
+}

@@ -1,7 +1,10 @@
-import type { NextConfig } from "next";
+import { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // outras configurações
+  turbopack: {
+    root: ".", // raiz do projeto
+  },
 };
 
 export default nextConfig;

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* IMPORT (se estiver usando @import ao invés do <link>) */
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap");
 
@@ -151,10 +152,168 @@ h6 {
 }
 
 /* FORMULÁRIOS */
+=======
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Paleta de Cores (Adaptada) */
+:root {
+  --primary-color: #a68a64; /* Marrom/Bege Primário */
+  --secondary-color: #936639; /* Marrom mais escuro para hover */
+  --background-light: #fafafa; /* Fundo Principal */
+  --text-dark: #333d29; /* Texto Principal Escuro */
+  --text-medium: #656d4a; /* Texto Secundário */
+  --sidebar-background: #e0e0e0;
+  --text-color: #ffffff;
+  font-size: 16px; /* Base rem */
+  --journal-accent: #a4ac86; /* Nova cor solicitada */
+  --shadow-medium: 0 0 15px rgba(0, 0, 0, 0.1); /* Sombra padrão para cards */
+  --border-color: #d1d5db; /* Cor padrão para bordas no tema claro */
+  --background-gradient: linear-gradient(
+    135deg,
+    #f5f5f5,
+    #e0e0e0
+  ); /* Gradiente de fundo claro */
+}
+
+/* Estilos para o tema ESCURO */
+.theme-escuro {
+  --primary-color: #5c6bc0; /* Azul índigo mais suave */
+  --secondary-color: #7986cb; /* Azul mais claro */
+  --highlight-color: #b39ddb; /* Roxo suave */
+  --accent-color: #90a4ae; /* Cinza azulado */
+  --journal-accent: #616161; /* Cinza escuro para destaque */
+
+  --text-dark: #e0e0e0;
+  --text-medium: #bdbdbd;
+  --text-light: #333;
+  --background-light: #263238; /* Fundo escuro */
+  --background-medium: #414833; /* Cards, elementos - Nova cor solicitada */
+  --background-dark: #212121; /* Outros fundos */
+  --sidebar-background: #424242;
+  --border-color: #555;
+  --shadow-medium: 0 0 15px rgba(0, 0, 0, 0.3); /* Sombra mais escura para cards no modo escuro */
+  --dark-mode-highlight: #414833; /* Nova cor para destaque no modo escuro */
+  --background-gradient: linear-gradient(
+    135deg,
+    #2c3e50,
+    #212121
+  ); /* Gradiente de fundo escuro */
+}
+
+/* Transições suaves para mudanças de tema */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: var(--background-gradient);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+#__next {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.app-layout {
+  display: flex;
+  flex-grow: 1;
+  min-height: 100vh;
+  width: 100%;
+  flex-direction: row; /* Padrão desktop */
+}
+
+.home-page-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px; /* Largura padrão desktop */
+  background-color: var(--sidebar-background);
+  color: var(--text-dark);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  flex-shrink: 0;
+  transition: background-color 0.3s ease, color 0.3s ease,
+    width 0.3s ease-in-out; /* Adiciona transição para a largura */
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.sidebar a:hover {
+  color: var(--secondary-color);
+}
+
+.sidebar a.active {
+  font-weight: 700;
+}
+
+/* Conteúdo Principal */
+.main-content {
+  flex-grow: 1;
+  display: flex; /* Adiciona flexbox */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  padding: 3rem; /* Padding padrão */
+  overflow-y: auto; /* Permite rolagem se o conteúdo transbordar */
+}
+
+.main-content.full-width {
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+}
+
+/* Botões */
+.btn-primary {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem; /* Responsivo */
+}
+.btn-primary:hover {
+  background: var(--secondary-color);
+}
+
+/* Formulários */
+>>>>>>> testes
 form.form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+<<<<<<< HEAD
   font-family: "Nunito", sans-serif;
 }
 
@@ -163,10 +322,18 @@ form label {
   font-weight: 600;
 }
 
+=======
+}
+form label {
+  color: var(--text-medium);
+  font-size: 1rem; /* Responsivo */
+}
+>>>>>>> testes
 form input,
 form textarea {
   padding: 0.75rem;
   border-radius: 8px;
+<<<<<<< HEAD
   border: 1px solid var(--border-color-primary);
   background: var(--bg-color-tertiary);
   color: var(--text-color-primary);
@@ -355,3 +522,186 @@ form textarea:focus {
   margin-left: auto; /* Tailwind mx-auto */
   margin-right: auto; /* Tailwind mx-auto */
 }
+=======
+  border: 1px solid var(--border-color); /* Usa a variável de borda global */
+  font-size: 1rem; /* Responsivo */
+}
+form textarea {
+  height: 10rem;
+  resize: vertical; /* Permite redimensionar verticalmente */
+}
+form input:focus,
+form textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--secondary-color);
+}
+
+/* Media Queries Globais para Responsividade */
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px; /* Base rem menor para mobile */
+  }
+
+  .app-layout {
+    flex-direction: column; /* Pilha vertical em mobile */
+  }
+
+  .sidebar {
+    width: 100%; /* Sidebar ocupa a largura total em mobile */
+    height: auto; /* Altura automática */
+    padding: 1rem; /* Padding menor */
+    flex-direction: row; /* Itens do sidebar em linha */
+    justify-content: space-around; /* Distribui os itens */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Separador */
+  }
+
+  .sidebar a {
+    margin-bottom: 0; /* Remove margem inferior em mobile */
+    padding: 0.5rem;
+  }
+
+  .main-content {
+    padding: 1.5rem; /* Padding menor em mobile */
+  }
+
+  .btn-primary {
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    font-size: 12px; /* Base rem ainda menor para telas muito pequenas */
+  }
+
+  .sidebar {
+    flex-wrap: wrap; /* Permite que os itens do sidebar quebrem linha */
+    justify-content: center; /* Centraliza itens */
+  }
+}
+
+/* Achievements (Ajustes responsivos - se não forem tratados em conquistas.module.css) */
+.achievements-grid {
+  gap: 1rem;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(180px, 1fr)
+  ); /* Min-width menor */
+}
+
+.achievement {
+  padding: 1rem; /* Padding menor */
+}
+
+.achievement h2 {
+  font-size: 1.2rem;
+}
+
+.achievement p {
+  font-size: 0.85rem;
+}
+
+/* Estilo da Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: var(--journal-accent); /* Cor de fundo da Sidebar */
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: #a68a64;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
+
+.sidebar a {
+  color: var(--text-light);
+  text-decoration: none;
+}
+/* Sidebar padrão (desktop) */
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #a68a64;
+  color: #fff;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+/* Links do sidebar */
+.sidebar a {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.sidebar a.active {
+  background-color: #a68a64;
+}
+
+/* Conteúdo principal ajustado para não ficar atrás do sidebar */
+.main-content {
+  margin-left: 250px;
+  transition: all 0.3s ease;
+}
+
+/* Tablet e mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 12px;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+}
+
+/* Mobile pequeno: sidebar escondido por padrão e toggle */
+@media (max-width: 480px) {
+  .sidebar {
+    display: none; /* inicialmente escondido */
+  }
+
+  .sidebar.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 100vh;
+    background-color: #1a1a1a;
+    z-index: 1000;
+    padding: 16px;
+  }
+
+  /* Botão de abrir sidebar */
+  .menu-toggle {
+    display: block;
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 1100;
+    background-color: #1a1a1a;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+  }
+}
+>>>>>>> testes

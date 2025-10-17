@@ -1,0 +1,91 @@
+/* page.module.css */
+
+.mainContent {
+  /* Estas regras garantem o estilo da tipografia na home */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza horizontalmente os itens dentro do mainContent */
+  /* text-align: center; REMOVIDO pois align-items fará a centralização dos blocos */
+  padding: 2.5rem 1.5rem; /* Usando rem para padding */
+  gap: 1.5rem; /* Usando rem para gap */
+}
+
+.logo {
+  max-width: 60%; /* Logo não deve exceder 60% da largura do contêiner */
+  max-height: 40vh; /* Limita a altura máxima para evitar que ocupe muito espaço */
+  height: auto; /* Mantém a proporção da imagem */
+  border-radius: 25px; /* Bordas arredondadas */
+  margin-bottom: 2rem; /* Usando rem para margin */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada */
+  transition: transform 0.3s ease-in-out; /* Transição suave para o hover */
+}
+
+.logo:hover {
+  transform: scale(1.03); /* Leve aumento no hover para interatividade */
+}
+
+.mainContent h1 {
+  font-size: 4rem; /* Título maior para impacto */
+  font-weight: 800;
+  color: var(--primary-color); /* Usando a cor primária para o título */
+  margin-bottom: 1rem; /* Usando rem para margin */
+  letter-spacing: -1.5px; /* Ajuste para espaçamento de letras */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra mais suave e visível */
+}
+
+.mainContent p {
+  font-size: 1.6rem; /* Parágrafo um pouco maior */
+  color: var(--text-dark); /* Usando text-dark para melhor contraste */
+  max-width: 700px; /* Aumenta a largura máxima para o texto */
+  line-height: 1.6; /* Melhor espaçamento entre linhas para legibilidade */
+  margin-bottom: 2.5rem; /* Usando rem para margin */
+  text-align: center; /* Garante que o texto do parágrafo seja centralizado */
+}
+
+/* Botão Começar a Jornada - vamos aprimorá-lo via globals.css ou uma classe mais específica, 
+   mas por agora, garanto que o spacing geral funciona. */
+
+/* Media Query para telas menores */
+@media (max-width: 768px) {
+  .mainContent {
+    padding: 2rem 1rem; /* Padding ajustado para mobile */
+  }
+
+  .mainContent h1 {
+    font-size: 2.8rem; /* Ajuste para telas médias */
+    letter-spacing: -1px;
+  }
+
+  .mainContent p {
+    font-size: 1.2rem; /* Ajuste para telas médias */
+    max-width: 90%; /* Ajusta a largura máxima para o texto em telas menores */
+  }
+
+  .logo {
+    max-width: 70%; /* Logo um pouco maior em telas médias */
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainContent {
+    padding: 1.5rem 0.5rem; /* Padding para telas muito pequenas */
+    gap: 1rem;
+  }
+
+  .mainContent h1 {
+    font-size: 2rem; /* Ajuste para telas muito pequenas */
+    letter-spacing: -0.5px;
+  }
+
+  .mainContent p {
+    font-size: 1rem; /* Ajuste para telas muito pequenas */
+    max-width: 95%;
+    margin-bottom: 2rem;
+  }
+
+  .logo {
+    max-width: 80%; /* Logo maior em telas muito pequenas */
+    margin-bottom: 1rem;
+  }
+}
