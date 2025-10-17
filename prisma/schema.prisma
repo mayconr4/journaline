@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  nome      String
+  email     String   @unique
+  senha     String
+  createdAt DateTime @default(now())
+  pontos    Int?     @default(0)
+  nivel     Int?     @default(1)
+  diarios   Diario[]
+}
+
+model Diario {
+  id          String   @id @default(cuid())
+  titulo      String
+  data        String
+  texto       String
+  corFundo    String
+  imagemFundo String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+}

@@ -1,0 +1,128 @@
+.formularioWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: var(--background-gradient); /* Usando o gradiente global */
+  padding: 1.5rem; /* Usando rem para padding */
+}
+
+.formulario {
+  background-color: var(--background-light); /* Fundo do formulário, adaptável ao tema */
+  padding: 2rem; /* Usando rem para padding */
+  border-radius: 12px;
+  box-shadow: var(--shadow-medium); /* Sombra adaptável ao tema */
+  width: 100%;
+  max-width: 400px; /* Limita a largura do formulário */
+  text-align: center;
+}
+
+.theme-escuro .formulario {
+  background-color: var(--background-medium); /* Usa a cor de cards do modo escuro */
+}
+
+.titulo {
+  font-size: 2rem;
+  margin-bottom: 1.5rem; /* Usando rem para margin */
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.campo {
+  width: 100%;
+  padding: 0.75rem; /* Usando rem para padding */
+  margin-bottom: 1rem; /* Usando rem para margin */
+  border: 1px solid var(--text-medium); /* Cor da borda alinhada */
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--text-dark);
+}
+
+.campo:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.botao {
+  width: 100%;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem; /* Usando rem para padding */
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 0.75rem; /* Usando rem para margin */
+}
+
+.botao:hover {
+  background-color: var(--secondary-color);
+}
+
+.mensagem {
+  margin-top: 1.25rem; /* Usando rem para margin */
+  font-size: 0.95rem;
+  color: var(--text-dark);
+}
+
+.linkCadastro {
+  margin-top: 1.25rem; /* Usando rem para margin */
+  font-size: 0.95rem;
+  color: var(--text-medium);
+}
+
+.linkCadastro b {
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.linkCadastro b:hover {
+  text-decoration: underline;
+}
+
+/* Media Queries para responsividade */
+@media (max-width: 768px) {
+  .formulario {
+    padding: 1.5rem; /* Padding menor em telas médias */
+    max-width: 350px;
+  }
+
+  .titulo {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .campo, .botao {
+    padding: 0.6rem;
+    font-size: 0.95rem;
+  }
+
+  .mensagem, .linkCadastro {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .formulario {
+    padding: 1rem; /* Padding ainda menor em mobile */
+    max-width: 95%; /* Ocupa quase toda a largura */
+  }
+
+  .titulo {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .campo, .botao {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .mensagem, .linkCadastro {
+    font-size: 0.8rem;
+  }
+}
